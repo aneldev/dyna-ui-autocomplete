@@ -77,6 +77,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     if (this.props.items.length === 0) return <div/>;
     return (
       <div className="dyna-autocomplete-menu">
+        <div className="dyna-autocomplete-menu-arrow-helper"/>
         {children}
       </div>
     )

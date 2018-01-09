@@ -1,12 +1,74 @@
 .dyna-autocomplete {
 
+	input {
+		width: 100%;
+		border: none;
+		font-weight: bold;
+		font-size: 16px;
+		line-height: 16px;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
 	.dyna-autocomplete-menu {
 		position: absolute;
+		right: 0;
+		left: 0;
+		margin: 0 12px;
 		box-sizing: border-box;
-		max-width: 50%;
 		border: 1px solid #cccccc;
 		background-color: white;
 		z-index: 1000;
 		padding: 3px;
+
+		.dyna-autocomplete-menu-arrow-helper {
+			display: none;
+		}
+
+		> *{
+			cursor: pointer;
+		}
 	}
+
+	&.dyna-ui-field-wrapper {
+
+		&-style- {
+			&INLINE_ROUNDED {
+
+				.dyna-autocomplete-menu {
+					border-radius: 10px;
+					margin-top: 12px;
+
+					.dyna-autocomplete-menu-arrow-helper {
+						display: block;
+						position: absolute;
+						background: white;
+						border-style: solid;
+						border-color: #cccccc;
+						width: 14px;
+						height: 14px;
+						transform: rotate(45deg);
+						top: -8px;
+						left: 23px;
+						border-width: 1px 0 0 1px;
+						z-index: -1;
+					}
+
+					> * {
+						&:nth-child(2) {
+							border-radius: 8px 8px 0 0;
+						}
+						&:last-child {
+							border-radius: 0 0 8px 8px;
+						}
+					}
+				}
+
+			}
+		}
+
+	}
+
 }

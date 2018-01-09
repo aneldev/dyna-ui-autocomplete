@@ -1,16 +1,37 @@
 .airportDropDownOption {
+	display: flex;
+	padding: 4px;
+	transition: background-color 200ms ease-out;
+
+	&:not(:last-child) {
+		border-bottom: 1px dashed lightgray;
+	}
+
 	&.isFocused {
 		background-color: lightgray;
 	}
 
 	.icon {
+		flex: 0 0 auto;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 28px;
+		padding: 12px;
 	}
 	.data {
+		flex: 1 1 100%;
+
 		.iataCity {
+			font-weight: bold;
+			font-size: 16px;
 		}
 		.name {
+			font-size: 14px;
 		}
-		.iataCountry {
+		.country {
+			font-weight: bold;
+			font-size: 12px;
 		}
 	}
 }
