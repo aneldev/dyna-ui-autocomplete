@@ -3,21 +3,32 @@ import { EColor, EStyle } from "dyna-ui-field-wrapper";
 import "./style.less";
 import "./color.less";
 export { EColor, EStyle };
-export interface IDynaAutoCompleteProps {
+export interface IDynaAutoCompleteProps<TItem> {
     style?: EStyle;
     color?: EColor;
     name: string;
     label?: TContent;
     required?: TContent;
+    isLoading?: boolean;
+    items: TItem[];
     value: string;
+    selectOnBlur?: boolean;
+    getItemValue: (item: TItem) => string;
+    renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
+    dropDownFilter?: (item: TItem, enteredText: string) => boolean;
     validationMessage?: TContent;
     footer?: TContent;
-    propsForInput?: any;
-    onChange?: (name: string, value: string) => void;
+    onChange: (name: string, value: IAutoCompleteValue<TItem>) => void;
 }
 export declare type TContent = string | JSX.Element;
-export declare class DynaAutoComplete extends React.Component<IDynaAutoCompleteProps> {
-    static defaultProps: IDynaAutoCompleteProps;
-    private handleChange(value);
+export interface IAutoCompleteValue<TItem> {
+    value: string;
+    item: TItem;
+}
+export declare class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompleteProps<TItem>> {
+    static defaultProps: IDynaAutoCompleteProps<any>;
+    private handlerOnChange(event, value);
+    private handlerOnSelect(value, item);
+    private renderMenu(children);
     render(): JSX.Element;
 }

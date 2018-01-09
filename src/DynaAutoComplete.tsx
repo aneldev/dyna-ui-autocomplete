@@ -19,6 +19,7 @@ export interface IDynaAutoCompleteProps<TItem> {
   isLoading?: boolean;
   items: TItem[];
   value: string;
+  selectOnBlur?: boolean;
   getItemValue: (item: TItem) => string;
   renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
   dropDownFilter?: (item: TItem, enteredText: string) => boolean;
@@ -43,15 +44,16 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     isLoading: false,
     items: [],
     value: "",
+    selectOnBlur: false,
     getItemValue: (item: any) => "",
     renderItem: (item: any, isFocused: boolean) => null,
-    dropDownFilter: (item: any, enteredText: string) => false,
+    dropDownFilter: (item: any, enteredText: string) => true,
     validationMessage: null,
     footer: null,
     onChange: (name: string, value: IAutoCompleteValue<any>) => undefined,
   };
 
-  private handerOnChange(event: Event, value: string): void {
+  private handlerOnChange(event: Event, value: string): void {
     const {name, items, onChange, getItemValue} = this.props;
     onChange(name, {
       value,
@@ -59,7 +61,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     });
   }
 
-  private handerOnSelect(value: string, item: TItem): void {
+  private handlerOnSelect(value: string, item: TItem): void {
     const {name, onChange} = this.props;
     onChange(name, {
       value,
@@ -69,6 +71,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
 
 
   private renderMenu(children: any): JSX.Element {
+    if (this.props.items.length === 0) return <div/>;
     return (
       <div className="dyna-autocomplete-menu">
         {children}
@@ -81,6 +84,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
       style, color,
       label, required, isLoading,
       items, value,
+      selectOnBlur,
       getItemValue, renderItem, dropDownFilter,
       validationMessage, footer,
     } = this.props;
@@ -100,14 +104,15 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         <ReactAutoComplete
           items={items}
           value={value}
+          selectOnBlur={selectOnBlur}
           getItemValue={getItemValue}
           renderMenu={this.renderMenu.bind(this)}
           renderItem={renderItem}
           shouldItemRender={dropDownFilter}
-    onChange={this.handerOnChange.bind(this)}
-    onSelect={this.handerOnSelect.bind(this)}
-    />
-  </DynaFieldWrapper>
-  );
+          onChange={this.handlerOnChange.bind(this)}
+          onSelect={this.handlerOnSelect.bind(this)}
+        />
+      </DynaFieldWrapper>
+    );
   }
 }
