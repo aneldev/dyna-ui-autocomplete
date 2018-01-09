@@ -2,4 +2,4 @@
 
 Simple auto complete control.
 
-Demo: `npm start`
+State: in progress...
