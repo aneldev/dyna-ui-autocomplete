@@ -6,14 +6,24 @@ configure({ adapter: new Adapter() });
 import * as React from 'react';
 import * as enzyme from 'enzyme';
 
-import {DynaButton} from './../../src';
+import {DynaAutoComplete} from '../../src';
+import {IAutoCompleteValue} from "../../src/DynaAutoComplete";
 
 describe('Home', () => {
   let wrapper;
 
   it('has expected content with deep render', () => {
     wrapper = enzyme.shallow(
-      <DynaButton onClick={() => console.log('I am clicked')}>My button</DynaButton>,
+      (
+        <DynaAutoComplete
+          name="countries"
+          items={[]}
+          value="Austria"
+          getItemValue={(item: any) => ""}
+          renderItem={(item: any, isFocused: boolean) => <span>item.label</span>}
+          onChange={(name: string, value: IAutoCompleteValue<any>) => undefined}
+        />
+      ),
       {}
     );
 
