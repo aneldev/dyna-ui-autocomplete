@@ -20,12 +20,14 @@ export interface IDynaAutoCompleteProps<TItem> {
   items: TItem[];
   value: string;
   selectOnBlur?: boolean;
+  allowFreeText?: boolean;
   getItemValue: (item: TItem) => string;
   renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
   dropDownFilter?: (item: TItem, enteredText: string) => boolean;
   validationMessage?: TContent;
   footer?: TContent;
   onChange: (name: string, value: IAutoCompleteValue<TItem>) => void;
+  onBlur?: () => void;
 }
 
 export type TContent = string | JSX.Element;
@@ -45,12 +47,18 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     items: [],
     value: "",
     selectOnBlur: false,
+    allowFreeText: true,
     getItemValue: (item: any) => "",
     renderItem: (item: any, isFocused: boolean) => null,
     dropDownFilter: (item: any, enteredText: string) => true,
     validationMessage: null,
     footer: null,
     onChange: (name: string, value: IAutoCompleteValue<any>) => undefined,
+    onBlur: () => undefined,
+  };
+
+  private handleOnBlur(): void {
+    this.props.onBlur();
   };
 
   private handlerOnChange(event: Event, value: string): void {
@@ -113,6 +121,9 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
           renderMenu={this.renderMenu.bind(this)}
           renderItem={renderItem}
           shouldItemRender={dropDownFilter}
+          inputProps={{
+            onBlur: this.handleOnBlur.bind(this),
+          }}
           onChange={this.handlerOnChange.bind(this)}
           onSelect={this.handlerOnSelect.bind(this)}
         />

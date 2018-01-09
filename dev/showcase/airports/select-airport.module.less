@@ -1,14 +1,15 @@
 .airportDropDownOption {
 	display: flex;
 	padding: 4px;
-	transition: background-color 200ms ease-out;
+	transition: color 200ms ease-out, background-color 200ms ease-out;
 
 	&:not(:last-child) {
 		border-bottom: 1px dashed lightgray;
 	}
 
 	&.isFocused {
-		background-color: lightgray;
+		color:white;
+		background-color: #3c3f41;
 	}
 
 	.icon {

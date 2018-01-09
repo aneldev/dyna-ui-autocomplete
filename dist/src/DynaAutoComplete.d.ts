@@ -13,12 +13,14 @@ export interface IDynaAutoCompleteProps<TItem> {
     items: TItem[];
     value: string;
     selectOnBlur?: boolean;
+    allowFreeText?: boolean;
     getItemValue: (item: TItem) => string;
     renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
     dropDownFilter?: (item: TItem, enteredText: string) => boolean;
     validationMessage?: TContent;
     footer?: TContent;
     onChange: (name: string, value: IAutoCompleteValue<TItem>) => void;
+    onBlur?: () => void;
 }
 export declare type TContent = string | JSX.Element;
 export interface IAutoCompleteValue<TItem> {
@@ -27,6 +29,7 @@ export interface IAutoCompleteValue<TItem> {
 }
 export declare class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompleteProps<TItem>> {
     static defaultProps: IDynaAutoCompleteProps<any>;
+    private handleOnBlur();
     private handlerOnChange(event, value);
     private handlerOnSelect(value, item);
     private renderMenu(children);

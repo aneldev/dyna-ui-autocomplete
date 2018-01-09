@@ -2,8 +2,10 @@ import * as React from 'react';
 import {IShowcaseView} from "dyna-showcase/dist/interfaces";
 import {DynaAutoComplete, IAutoCompleteValue} from "../../../src/DynaAutoComplete";
 import {faIcon} from "../../../src/utils";
+import {DynaInput} from "dyna-ui-input";
 
 const selectAirportStyles: any = require('./select-airport.module.less');
+const myApplicationStyles: any = require('./my-application.module.less');
 
 const airportsMd: any = require('./airports-rnd.json');
 
@@ -53,6 +55,7 @@ export const selectAirportShowcase: IShowcaseView = {
       }
     });
 
+    // our backend service
     const getAirports = (containing: string, records: number, cbLoad: (airports: IAirport[]) => void): void => {
       setTimeout(() => {
         containing = containing.toLowerCase().trim();
@@ -71,7 +74,7 @@ export const selectAirportShowcase: IShowcaseView = {
 
         for (let iAirport = 0; iAirport < airportsTableInLC.length && selectedAirports.length < records; iAirport++) {
           const airport: IAirport = airportsTableInLC[iAirport];
-          const airportText:string=`${airport.name} ${airport.city} ${airport.country} ${airport.iata}`
+          const airportText: string = `${airport.name} ${airport.city} ${airport.country} ${airport.iata}`
           if (!selectedAirportsDic[airport.iata]) {
             if (contains(containing, airportText)) {
               selectedAirports.push(airportsTable[iAirport]);
@@ -91,13 +94,12 @@ export const selectAirportShowcase: IShowcaseView = {
       value: string;
       suggestedAirports: IAirport[];
       isLoading: boolean;
+      validationMessage: string;
+      onBlur: () => void;
       onChange: (name: string, value: string, airport: IAirport) => void;
     }
 
-    interface ISelectAirportState {
-    }
-
-    class SelectAirport extends React.Component<ISelectAirportProps, ISelectAirportState> {
+    class SelectAirport extends React.Component<ISelectAirportProps> {
       constructor(props: ISelectAirportProps) {
         super(props);
       }
@@ -112,7 +114,7 @@ export const selectAirportShowcase: IShowcaseView = {
           isFocused ? selectAirportStyles.isFocused : '',
         ].join(' ').trim();
 
-        // todo: highlight the content with https://github.com/aneldev/dyna-highlight-text
+        // todo: highlight the content with https://github.com/aneldev/dyna-highlight-text but this is not part of this demo
 
         return (
           <div key={airport.iata} className={className}>
@@ -127,7 +129,15 @@ export const selectAirportShowcase: IShowcaseView = {
       }
 
       public render(): JSX.Element {
-        const {name, suggestedAirports, value, isLoading} = this.props;
+        const {
+          name,
+          suggestedAirports,
+          value,
+          isLoading,
+          validationMessage,
+          onBlur,
+        } = this.props;
+
         return (
           <DynaAutoComplete
             name={name}
@@ -136,8 +146,10 @@ export const selectAirportShowcase: IShowcaseView = {
             value={value}
             selectOnBlur
             items={!!value ? suggestedAirports : []}
+            validationMessage={validationMessage}
             getItemValue={(item: IAirport) => `${item.iata.toUpperCase()} ${item.city}`}
             renderItem={this.renderAirportOption.bind(this)}
+            onBlur={onBlur}
             onChange={this.handleChange.bind(this)}
           />
         );
@@ -150,9 +162,12 @@ export const selectAirportShowcase: IShowcaseView = {
     }
 
     interface IMyApplicationState {
+      passengerName: string;
+      phoneNumber: string;
       suggestAirports: IAirport[];
       selectedAirportValue: string;
       selectedAirportItem: IAirport;
+      selectedAirportValidation: string;
       isLoading: boolean;
     }
 
@@ -161,17 +176,21 @@ export const selectAirportShowcase: IShowcaseView = {
       constructor(props: IMyApplicationProps) {
         super(props);
         this.state = {
+          passengerName: '',
+          phoneNumber: '',
           suggestAirports: [],
           selectedAirportValue: '',
           selectedAirportItem: null,
+          selectedAirportValidation: null,
           isLoading: false,
         };
       }
 
       private handleAirportChange(name: string, airportValue: string, airportItem: IAirport): void {
+        console.debug('handleAirportChange', {airportItem, lastAirportItem:this.state.selectedAirportItem });
         this.setState({
           selectedAirportValue: airportValue,
-          selectedAirportItem: airportItem,
+          selectedAirportItem: airportItem || this.state.selectedAirportItem,
           isLoading: true,
         });
 
@@ -183,15 +202,55 @@ export const selectAirportShowcase: IShowcaseView = {
         });
       }
 
+      private handleAirportBlur(): void {
+        console.debug('handleAirportBlur', {state: this.state});
+        if (this.state.selectedAirportItem) {
+          this.setState({
+            selectedAirportValue: `${this.state.selectedAirportItem.iata.toUpperCase()} ${this.state.selectedAirportItem.city}`,
+            selectedAirportValidation: null,
+          });
+        } else {
+          this.setState({
+            selectedAirportValue: '',
+            selectedAirportValidation: 'please select airport',
+          });
+        }
+
+      }
+
       public render(): JSX.Element {
-        const {suggestAirports, selectedAirportValue, isLoading} = this.state;
+        const {
+          passengerName, phoneNumber,
+          suggestAirports, selectedAirportValue, isLoading, selectedAirportValidation,
+        } = this.state;
+
+        const infoForDemostrationOnly: JSX.Element = <span
+          style={{fontSize: "10px", color: "gray"}}>{faIcon('exclamation-triangle')}<i> this field is for demostration only </i>{faIcon('exclamation-triangle')}</span>;
+
         return (
-          <SelectAirport
-            name="originAirport"
-            suggestedAirports={suggestAirports}
-            value={selectedAirportValue}
-            isLoading={isLoading}
-            onChange={this.handleAirportChange.bind(this)}/>
+          <div className={myApplicationStyles.appWrapper}>
+            <DynaInput
+              name="passengerName"
+              label="Passenger name"
+              footer={infoForDemostrationOnly}
+              value={passengerName}
+              onChange={(name: string, value: string) => this.setState({passengerName: value})}/>
+            <SelectAirport
+              name="originAirport"
+              suggestedAirports={suggestAirports}
+              value={selectedAirportValue}
+              isLoading={isLoading}
+              validationMessage={selectedAirportValidation}
+              onBlur={this.handleAirportBlur.bind(this)}
+              onChange={this.handleAirportChange.bind(this)}
+            />
+            <DynaInput
+              name="phoneNumber"
+              label="Phone number"
+              value={phoneNumber}
+              footer={infoForDemostrationOnly}
+              onChange={(name: string, value: string) => this.setState({phoneNumber: value})}/>
+          </div>
         );
       }
 
@@ -204,7 +263,5 @@ export const selectAirportShowcase: IShowcaseView = {
   })(),
   wrapperStyle: {
     width: "100%",
-    backgroundColor: "grey",
-    padding: "20px",
   },
 };
