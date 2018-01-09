@@ -1,2 +1,2 @@
-import { DynaButton, IDynaButtonProps, EStyle, EColor, ESize } from "./DynaButton";
-export { DynaButton, IDynaButtonProps, EStyle, EColor, ESize };
+import { DynaAutoComplete, IDynaAutoCompleteProps, EStyle, EColor } from "./DynaAutoComplete";
+export { DynaAutoComplete, IDynaAutoCompleteProps, EStyle, EColor };
