@@ -26,15 +26,14 @@ export const selectAirportShowcase: IShowcaseView = {
     // utils
 
     const contains = (searchText: string, inText: string): boolean => {
-      let itContains: boolean = false;
-      const texts: string[] = searchText.split(' ').filter((t: string) => !!t);
+      let itContains: number = 0;
+      const searchTexts: string[] = searchText.split(' ').filter((t: string) => !!t);
 
-      texts.forEach((text: string) => {
-        if (itContains) return;
-        if (inText.indexOf(text) > -1) itContains = true;
+      searchTexts.forEach((text: string) => {
+        if (inText.indexOf(text) > -1) itContains++;
       });
 
-      return itContains;
+      return itContains == searchTexts.length;
     };
 
     // build the airports tables
@@ -55,29 +54,33 @@ export const selectAirportShowcase: IShowcaseView = {
     });
 
     const getAirports = (containing: string, records: number, cbLoad: (airports: IAirport[]) => void): void => {
-      console.debug('searching...');
       setTimeout(() => {
         containing = containing.toLowerCase().trim();
-        let output: IAirport[] = [];
-        let airportByIata: IAirport = airportsDictionary[containing.toUpperCase()];
+        const selectedAirports: IAirport[] = [];
+        const selectedAirportsDic: { [iataCode: string]: boolean } = {};
 
-        for (let iAirport = 0; iAirport < airportsTableInLC.length && output.length < records; iAirport++) {
+        containing.toUpperCase().split(' ')
+          .forEach((text: string) => {
+            if (selectedAirports.length) return;
+            const airportFromDictionary: IAirport = airportsDictionary[text];
+            if (airportFromDictionary) {
+              selectedAirports.push(airportFromDictionary);
+              selectedAirportsDic[airportFromDictionary.iata.toLowerCase()] = true;
+            }
+          });
+
+        for (let iAirport = 0; iAirport < airportsTableInLC.length && selectedAirports.length < records; iAirport++) {
           const airport: IAirport = airportsTableInLC[iAirport];
-          if (airport.iata !== containing) {
-            if (contains(containing, airport.name)
-              || contains(containing, airport.city)
-              || contains(containing, airport.country)
-              || contains(containing, airport.iata)) {
-              output.push(airportsTable[iAirport]);
+          const airportText:string=`${airport.name} ${airport.city} ${airport.country} ${airport.iata}`
+          if (!selectedAirportsDic[airport.iata]) {
+            if (contains(containing, airportText)) {
+              selectedAirports.push(airportsTable[iAirport]);
+              selectedAirportsDic[airport.iata] = true;
             }
           }
         }
 
-        if (airportByIata) {
-          output.unshift(airportByIata);
-        }
-        console.debug('searching... completed');
-        cbLoad(output);
+        cbLoad(selectedAirports);
       }, 300); // simulate network delay
     };
 

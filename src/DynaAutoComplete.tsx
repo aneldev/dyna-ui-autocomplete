@@ -55,6 +55,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
 
   private handlerOnChange(event: Event, value: string): void {
     const {name, items, onChange, getItemValue} = this.props;
+    console.debug('onChange', {value});
     onChange(name, {
       value,
       item: items.find((item: TItem) => value === getItemValue(item)),
@@ -62,6 +63,8 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   }
 
   private handlerOnSelect(value: string, item: TItem): void {
+    if (this.props.value === value) return; // exit, nothing is changed
+    console.debug('onSelect', {value, item});
     const {name, onChange} = this.props;
     onChange(name, {
       value,
@@ -94,7 +97,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         className="dyna-autocomplete"
         style={style}
         color={color}
-        inputElementSelector=".dyna-ui-input-control-element" // todo
+        inputElementSelector="input"
         label={label}
         isLoading={isLoading ? faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null}
         required={required}
