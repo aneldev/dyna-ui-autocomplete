@@ -1,5 +1,6 @@
 import {
   DynaAutoComplete, IDynaAutoCompleteProps,
+  IAutoCompleteValue,
   EStyle, EColor,
 } from "./DynaAutoComplete";
 
