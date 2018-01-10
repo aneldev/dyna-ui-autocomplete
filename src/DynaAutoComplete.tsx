@@ -81,7 +81,6 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     });
   }
 
-
   private renderMenu(children: any): JSX.Element {
     if (this.props.items.length === 0) return <div/>;
     return (
