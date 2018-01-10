@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactAutoComplete from 'react-autocomplete';
 import {DynaFieldWrapper, EColor, EStyle} from "dyna-ui-field-wrapper"
+import {DynaPickerContainer, EStyle as EPickerStyle, EColor as EPickerColor} from "dyna-ui-picker-container"
 
 import "./style.less";
 import "./color.less";
@@ -85,8 +86,11 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     if (this.props.items.length === 0) return <div/>;
     return (
       <div className="dyna-autocomplete-menu">
-        <div className="dyna-autocomplete-menu-arrow-helper"/>
-        {children}
+        <DynaPickerContainer
+          show
+          style={EPickerStyle.ROUNDED}
+          color={EPickerColor.WHITE_BLACK}
+        >{children}</DynaPickerContainer>
       </div>
     )
   }
