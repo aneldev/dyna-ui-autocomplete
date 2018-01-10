@@ -27,7 +27,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dyna-ui-field-wrapper": "0.0.5",
+    "dyna-ui-field-wrapper": "^1.0.0",
     "dyna-ui-picker-container": "^1.0.0",
     "font-awesome": "^4.7.0",
     "react": "^16.0.0",
@@ -91,7 +91,7 @@
     "setupTestFrameworkScriptFile": "./tests/setup/testsetup.js",
     "automock": false,
     "collectCoverage": false,
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
