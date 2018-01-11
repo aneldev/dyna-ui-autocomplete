@@ -28,8 +28,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dyna-ui-field-wrapper": "^1.0.0",
-    "dyna-ui-picker-container": "^1.0.0",
+    "dyna-ui-field-wrapper": "^1.0.2",
+    "dyna-ui-picker-container": "^1.0.2",
     "font-awesome": "^4.7.0",
     "react": "^16.0.0",
     "react-autocomplete": "^1.7.2",
