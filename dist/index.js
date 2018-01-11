@@ -1517,9 +1517,10 @@ var DynaAutoComplete = /** @class */ (function (_super) {
             React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, { show: true, style: dyna_ui_picker_container_1.EStyle.ROUNDED, color: dyna_ui_picker_container_1.EColor.WHITE_BLACK }, children)));
     };
     DynaAutoComplete.prototype.render = function () {
-        var _a = this.props, style = _a.style, color = _a.color, label = _a.label, required = _a.required, isLoading = _a.isLoading, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
+        var _a = this.props, style = _a.style, color = _a.color, label = _a.label, required = _a.required, isLoading = _a.isLoading, placeholder = _a.placeholder, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
         return (React.createElement(dyna_ui_field_wrapper_1.DynaFieldWrapper, { className: "dyna-autocomplete", style: style, color: color, inputElementSelector: "input", label: label, isLoading: isLoading ? utils_1.faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null, required: required, validationMessage: validationMessage, footer: footer },
             React.createElement(ReactAutoComplete, { items: items, value: value, selectOnBlur: selectOnBlur, getItemValue: getItemValue, renderMenu: this.renderMenu.bind(this), renderItem: renderItem, shouldItemRender: dropDownFilter, inputProps: {
+                    placeholder: placeholder,
                     onBlur: this.handleOnBlur.bind(this),
                 }, onChange: this.handlerOnChange.bind(this), onSelect: this.handlerOnSelect.bind(this) })));
     };
@@ -1529,6 +1530,7 @@ var DynaAutoComplete = /** @class */ (function (_super) {
         name: '',
         label: null,
         isLoading: false,
+        placeholder: '',
         items: [],
         value: "",
         selectOnBlur: false,
