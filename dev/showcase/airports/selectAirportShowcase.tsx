@@ -92,6 +92,7 @@ export const selectAirportShowcase: IShowcaseView = {
     interface ISelectAirportProps {
       name: string;
       value: string;
+      placeholder: string;
       suggestedAirports: IAirport[];
       isLoading: boolean;
       validationMessage: string;
@@ -131,6 +132,7 @@ export const selectAirportShowcase: IShowcaseView = {
       public render(): JSX.Element {
         const {
           name,
+          placeholder,
           suggestedAirports,
           value,
           isLoading,
@@ -142,6 +144,7 @@ export const selectAirportShowcase: IShowcaseView = {
           <DynaAutoComplete
             name={name}
             label="From"
+            placeholder={placeholder}
             isLoading={isLoading}
             value={value}
             selectOnBlur
@@ -237,6 +240,7 @@ export const selectAirportShowcase: IShowcaseView = {
               onChange={(name: string, value: string) => this.setState({passengerName: value})}/>
             <SelectAirport
               name="originAirport"
+              placeholder="where do you want to go"
               suggestedAirports={suggestAirports}
               value={selectedAirportValue}
               isLoading={isLoading}

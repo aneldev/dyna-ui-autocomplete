@@ -18,6 +18,7 @@ export interface IDynaAutoCompleteProps<TItem> {
   label?: TContent;
   required?: TContent;
   isLoading?: boolean;
+  placeholder?: string;
   items: TItem[];
   value: string;
   selectOnBlur?: boolean;
@@ -45,6 +46,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     name: '',
     label: null,
     isLoading: false,
+    placeholder: '',
     items: [],
     value: "",
     selectOnBlur: false,
@@ -97,7 +99,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   public render(): JSX.Element {
     const {
       style, color,
-      label, required, isLoading,
+      label, required, isLoading, placeholder,
       items, value,
       selectOnBlur,
       getItemValue, renderItem, dropDownFilter,
@@ -125,6 +127,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
           renderItem={renderItem}
           shouldItemRender={dropDownFilter}
           inputProps={{
+            placeholder: placeholder,
             onBlur: this.handleOnBlur.bind(this),
           }}
           onChange={this.handlerOnChange.bind(this)}
