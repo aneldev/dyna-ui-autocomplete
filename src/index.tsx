@@ -6,5 +6,6 @@ import {
 
 export {
   DynaAutoComplete, IDynaAutoCompleteProps,
+  IAutoCompleteValue,
   EStyle, EColor,
 }
