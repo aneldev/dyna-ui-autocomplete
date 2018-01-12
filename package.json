@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "dyna-ui-field-wrapper": "^1.0.2",
-    "dyna-ui-picker-container": "^1.0.2",
+    "dyna-ui-picker-container": "^1.0.3",
     "font-awesome": "^4.7.0",
     "react": "^16.0.0",
     "react-autocomplete": "^1.7.2",
@@ -42,7 +42,7 @@
     "@types/node": "^7.0.14",
     "@types/react": "^16.0.0",
     "@types/react-dom": "^16.0.0",
-    "autoprefixer": "^7.1.1",
+    "autoprefixer": "^7.2.5",
     "awesome-typescript-loader": "^3.1.3",
     "babel-core": "6.11.4",
     "babel-jest": "^20.0.3",
@@ -56,7 +56,7 @@
     "babel-runtime": "6.11.6",
     "chokidar": "^1.7.0",
     "css-loader": "^0.28.4",
-    "dyna-showcase": "^1.0.2",
+    "dyna-showcase": "^1.0.5",
     "dyna-ui-input": "0.0.5",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.0",
@@ -86,7 +86,7 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.5.6",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.10.1"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./tests/setup/testsetup.js",
