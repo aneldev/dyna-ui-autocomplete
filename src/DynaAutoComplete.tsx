@@ -22,7 +22,6 @@ export interface IDynaAutoCompleteProps<TItem> {
   items: TItem[];
   value: string;
   selectOnBlur?: boolean;
-  allowFreeText?: boolean;
   getItemValue: (item: TItem) => string;
   renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
   dropDownFilter?: (item: TItem, enteredText: string) => boolean;
@@ -50,7 +49,6 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     items: [],
     value: "",
     selectOnBlur: false,
-    allowFreeText: true,
     getItemValue: (item: any) => "",
     renderItem: (item: any, isFocused: boolean) => null,
     dropDownFilter: (item: any, enteredText: string) => true,
