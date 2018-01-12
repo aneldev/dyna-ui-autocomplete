@@ -12,20 +12,18 @@ export const debounce = (cbFunction: Function, timeout: number): Function => {
     clearTimeout(setTimerHolder);
     setTimerHolder = null;
     lastCalled = new Date();
+    cbFunction();
   };
 
   return () => {
-
     if (setTimerHolder) {
       clearTimeout(setTimerHolder);
     }
-
     if (Number(new Date()) - Number(lastCalled) > timeout) {
       runIt();
     } else {
       setTimerHolder = setTimeout(runIt, timeout);
     }
-
   }
 
 };

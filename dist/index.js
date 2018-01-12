@@ -1456,6 +1456,7 @@ exports.debounce = function (cbFunction, timeout) {
         clearTimeout(setTimerHolder);
         setTimerHolder = null;
         lastCalled = new Date();
+        cbFunction();
     };
     return function () {
         if (setTimerHolder) {
