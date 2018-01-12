@@ -190,7 +190,7 @@ export const selectAirportShowcase: IShowcaseView = {
       }
 
       private handleAirportChange(name: string, airportValue: string, airportItem: IAirport): void {
-        console.debug('handleAirportChange', {airportItem, lastAirportItem:this.state.selectedAirportItem });
+        console.debug('airport change', {airportItem, lastAirportItem:this.state.selectedAirportItem });
         this.setState({
           selectedAirportValue: airportValue,
           selectedAirportItem: airportItem || this.state.selectedAirportItem,
@@ -206,7 +206,6 @@ export const selectAirportShowcase: IShowcaseView = {
       }
 
       private handleAirportBlur(): void {
-        console.debug('handleAirportBlur', {state: this.state});
         if (this.state.selectedAirportItem) {
           this.setState({
             selectedAirportValue: `${this.state.selectedAirportItem.iata.toUpperCase()} ${this.state.selectedAirportItem.city}`,

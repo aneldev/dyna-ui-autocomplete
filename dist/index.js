@@ -1535,7 +1535,6 @@ var DynaAutoComplete = /** @class */ (function (_super) {
     ;
     DynaAutoComplete.prototype.handlerOnChange = function (event, value) {
         var _a = this.props, name = _a.name, items = _a.items, onChange = _a.onChange, getItemValue = _a.getItemValue;
-        console.debug('onChange', { value: value });
         onChange(name, {
             value: value,
             item: items.find(function (item) { return value === getItemValue(item); }),
@@ -1544,7 +1543,6 @@ var DynaAutoComplete = /** @class */ (function (_super) {
     DynaAutoComplete.prototype.handlerOnSelect = function (value, item) {
         if (this.props.value === value)
             return; // exit, nothing is changed
-        console.debug('onSelect', { value: value, item: item });
         var _a = this.props, name = _a.name, onChange = _a.onChange;
         onChange(name, {
             value: value,
