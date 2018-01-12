@@ -18,17 +18,16 @@ export interface IDynaAutoCompleteProps<TItem> {
   label?: TContent;
   required?: TContent;
   isLoading?: boolean;
-  placeholder?: string;
   items: TItem[];
   value: string;
   selectOnBlur?: boolean;
+  inputProps?: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
   getItemValue: (item: TItem) => string;
   renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
   dropDownFilter?: (item: TItem, enteredText: string) => boolean;
   validationMessage?: TContent;
   footer?: TContent;
   onChange: (name: string, value: IAutoCompleteValue<TItem>) => void;
-  onBlur?: () => void;
 }
 
 export type TContent = string | JSX.Element;
@@ -45,9 +44,9 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     name: '',
     label: null,
     isLoading: false,
-    placeholder: '',
     items: [],
     value: "",
+    inputProps: {},
     selectOnBlur: false,
     getItemValue: (item: any) => "",
     renderItem: (item: any, isFocused: boolean) => null,
@@ -55,11 +54,6 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     validationMessage: null,
     footer: null,
     onChange: (name: string, value: IAutoCompleteValue<any>) => undefined,
-    onBlur: () => undefined,
-  };
-
-  private handleOnBlur(): void {
-    this.props.onBlur();
   };
 
   private handlerOnChange(event: Event, value: string): void {
@@ -95,9 +89,10 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   public render(): JSX.Element {
     const {
       style, color,
-      label, required, isLoading, placeholder,
+      label, required, isLoading,
       items, value,
       selectOnBlur,
+      inputProps,
       getItemValue, renderItem, dropDownFilter,
       validationMessage, footer,
     } = this.props;
@@ -122,10 +117,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
           renderMenu={this.renderMenu.bind(this)}
           renderItem={renderItem}
           shouldItemRender={dropDownFilter}
-          inputProps={{
-            placeholder: placeholder,
-            onBlur: this.handleOnBlur.bind(this),
-          }}
+          inputProps={inputProps}
           onChange={this.handlerOnChange.bind(this)}
           onSelect={this.handlerOnSelect.bind(this)}
         />

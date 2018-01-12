@@ -144,15 +144,18 @@ export const selectAirportShowcase: IShowcaseView = {
           <DynaAutoComplete
             name={name}
             label="From"
-            placeholder={placeholder}
             isLoading={isLoading}
             value={value}
             selectOnBlur
+            inputProps={{
+              placeholder,
+              autoFocus: true,
+              onBlur,
+            }}
             items={!!value ? suggestedAirports : []}
             validationMessage={validationMessage}
             getItemValue={(item: IAirport) => `${item.iata.toUpperCase()} ${item.city}`}
             renderItem={this.renderAirportOption.bind(this)}
-            onBlur={onBlur}
             onChange={this.handleChange.bind(this)}
           />
         );

@@ -5,7 +5,7 @@ export const faIcon = (awesomeFontIconName:string, className:string='') => <i cl
 
 export const debounce = (cbFunction: Function, timeout: number): Function => {
 
-  let setTimerHolder: Timer = null;
+  let setTimerHolder: any = null;
   let lastCalled: Date = (0 as any);
 
   const runIt = (args: any[]) => {
@@ -25,5 +25,4 @@ export const debounce = (cbFunction: Function, timeout: number): Function => {
       setTimerHolder = setTimeout(() => runIt(args), timeout);
     }
   }
-
 };
