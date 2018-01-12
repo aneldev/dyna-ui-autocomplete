@@ -8,21 +8,21 @@ export const debounce = (cbFunction: Function, timeout: number): Function => {
   let setTimerHolder: Timer = null;
   let lastCalled: Date = (0 as any);
 
-  const runIt = () => {
+  const runIt = (args: any[]) => {
     clearTimeout(setTimerHolder);
     setTimerHolder = null;
     lastCalled = new Date();
-    cbFunction();
+    cbFunction(...args);
   };
 
-  return () => {
+  return (...args: any[]) => {
     if (setTimerHolder) {
       clearTimeout(setTimerHolder);
     }
     if (Number(new Date()) - Number(lastCalled) > timeout) {
-      runIt();
+      runIt(args);
     } else {
-      setTimerHolder = setTimeout(runIt, timeout);
+      setTimerHolder = setTimeout(() => runIt(args), timeout);
     }
   }
 

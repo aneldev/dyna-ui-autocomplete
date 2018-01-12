@@ -1452,21 +1452,25 @@ exports.faIcon = function (awesomeFontIconName, className) {
 exports.debounce = function (cbFunction, timeout) {
     var setTimerHolder = null;
     var lastCalled = 0;
-    var runIt = function () {
+    var runIt = function (args) {
         clearTimeout(setTimerHolder);
         setTimerHolder = null;
         lastCalled = new Date();
-        cbFunction();
+        cbFunction.apply(void 0, args);
     };
     return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
         if (setTimerHolder) {
             clearTimeout(setTimerHolder);
         }
         if (Number(new Date()) - Number(lastCalled) > timeout) {
-            runIt();
+            runIt(args);
         }
         else {
-            setTimerHolder = setTimeout(runIt, timeout);
+            setTimerHolder = setTimeout(function () { return runIt(args); }, timeout);
         }
     };
 };
