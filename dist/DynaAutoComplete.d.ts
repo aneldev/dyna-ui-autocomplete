@@ -14,7 +14,6 @@ export interface IDynaAutoCompleteProps<TItem> {
     items: TItem[];
     value: string;
     selectOnBlur?: boolean;
-    allowFreeText?: boolean;
     getItemValue: (item: TItem) => string;
     renderItem: (item: TItem, isFocused: boolean) => JSX.Element;
     dropDownFilter?: (item: TItem, enteredText: string) => boolean;
