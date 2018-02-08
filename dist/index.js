@@ -1530,6 +1530,8 @@ var DynaAutoComplete = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DynaAutoComplete.prototype.handlerOnChange = function (event, value) {
+        if (this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW)
+            return;
         var _a = this.props, name = _a.name, items = _a.items, onChange = _a.onChange, getItemValue = _a.getItemValue;
         onChange(name, {
             value: value,
@@ -1537,6 +1539,8 @@ var DynaAutoComplete = /** @class */ (function (_super) {
         });
     };
     DynaAutoComplete.prototype.handlerOnSelect = function (value, item) {
+        if (this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW)
+            return;
         if (this.props.value === value)
             return; // exit, nothing is changed
         var _a = this.props, name = _a.name, onChange = _a.onChange;
@@ -1546,20 +1550,26 @@ var DynaAutoComplete = /** @class */ (function (_super) {
         });
     };
     DynaAutoComplete.prototype.renderMenu = function (children) {
+        var exit = false;
+        if (this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW)
+            exit = true;
         if (this.props.items.length === 0)
+            exit = true;
+        if (exit)
             return React.createElement("div", null);
         return (React.createElement("div", { className: "dyna-autocomplete-menu" },
             React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, { show: true, style: dyna_ui_picker_container_1.EStyle.ROUNDED, color: dyna_ui_picker_container_1.EColor.WHITE_BLACK, responsive: false }, children)));
     };
     DynaAutoComplete.prototype.render = function () {
-        var _a = this.props, style = _a.style, color = _a.color, label = _a.label, required = _a.required, isLoading = _a.isLoading, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, inputProps = _a.inputProps, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
-        return (React.createElement(dyna_ui_field_wrapper_1.DynaFieldWrapper, { className: "dyna-autocomplete", style: style, color: color, inputElementSelector: "input", label: label, isLoading: isLoading ? utils_1.faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null, required: required, validationMessage: validationMessage, footer: footer },
-            React.createElement(ReactAutoComplete, { items: items, value: value, selectOnBlur: selectOnBlur, getItemValue: getItemValue, renderMenu: this.renderMenu.bind(this), renderItem: renderItem, shouldItemRender: dropDownFilter, inputProps: inputProps, onChange: this.handlerOnChange.bind(this), onSelect: this.handlerOnSelect.bind(this) })));
+        var _a = this.props, mode = _a.mode, style = _a.style, color = _a.color, label = _a.label, required = _a.required, isLoading = _a.isLoading, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, inputProps = _a.inputProps, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
+        return (React.createElement(dyna_ui_field_wrapper_1.DynaFieldWrapper, { className: "dyna-autocomplete", style: style, color: color, mode: mode, inputElementSelector: "input", label: label, isLoading: isLoading ? utils_1.faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null, required: required, validationMessage: validationMessage, footer: footer },
+            React.createElement(ReactAutoComplete, { items: items, value: value, enabled: mode === dyna_ui_field_wrapper_1.EMode.EDIT, selectOnBlur: selectOnBlur, getItemValue: getItemValue, renderMenu: this.renderMenu.bind(this), renderItem: renderItem, shouldItemRender: dropDownFilter, inputProps: inputProps, onChange: this.handlerOnChange.bind(this), onSelect: this.handlerOnSelect.bind(this) })));
     };
     DynaAutoComplete.defaultProps = {
+        name: '',
+        mode: dyna_ui_field_wrapper_1.EMode.EDIT,
         style: dyna_ui_field_wrapper_1.EStyle.INLINE_ROUNDED,
         color: dyna_ui_field_wrapper_1.EColor.WHITE_BLACK,
-        name: '',
         label: null,
         isLoading: false,
         items: [],

@@ -1,8 +1,10 @@
 import * as React from 'react';
+import {DynaInput} from "dyna-ui-input";
+import {EColor, EMode} from "dyna-ui-field-wrapper";
 import {IShowcaseView} from "dyna-showcase/dist/interfaces";
+
 import {DynaAutoComplete, IAutoCompleteValue} from "../../../src/DynaAutoComplete";
 import {faIcon} from "../../../src/utils";
-import {DynaInput} from "dyna-ui-input";
 
 const selectAirportStyles: any = require('./select-airport.module.less');
 const myApplicationStyles: any = require('./my-application.module.less');
@@ -91,11 +93,13 @@ export const selectAirportShowcase: IShowcaseView = {
 
     interface ISelectAirportProps {
       name: string;
+      label: string;
+      mode?: EMode;
       value: string;
       placeholder: string;
       suggestedAirports: IAirport[];
-      isLoading: boolean;
-      validationMessage: string;
+      isLoading?: boolean;
+      validationMessage?: string;
       onBlur: () => void;
       onChange: (name: string, value: string, airport: IAirport) => void;
     }
@@ -132,6 +136,8 @@ export const selectAirportShowcase: IShowcaseView = {
       public render(): JSX.Element {
         const {
           name,
+          label,
+          mode,
           placeholder,
           suggestedAirports,
           value,
@@ -143,7 +149,9 @@ export const selectAirportShowcase: IShowcaseView = {
         return (
           <DynaAutoComplete
             name={name}
-            label="From"
+            color={EColor.GRAY_WHITE_BLACK}
+            mode={mode || EMode.EDIT}
+            label={label}
             isLoading={isLoading}
             value={value}
             selectOnBlur
@@ -153,7 +161,7 @@ export const selectAirportShowcase: IShowcaseView = {
               onBlur,
             }}
             items={!!value ? suggestedAirports : []}
-            validationMessage={validationMessage}
+            validationMessage={validationMessage || null}
             getItemValue={(item: IAirport) => `${item.iata.toUpperCase()} ${item.city}`}
             renderItem={this.renderAirportOption.bind(this)}
             onChange={this.handleChange.bind(this)}
@@ -242,6 +250,7 @@ export const selectAirportShowcase: IShowcaseView = {
               onChange={(name: string, value: string) => this.setState({passengerName: value})}/>
             <SelectAirport
               name="originAirport"
+              label="From"
               placeholder="where do you want to go"
               suggestedAirports={suggestAirports}
               value={selectedAirportValue}
@@ -249,6 +258,19 @@ export const selectAirportShowcase: IShowcaseView = {
               validationMessage={selectedAirportValidation}
               onBlur={this.handleAirportBlur.bind(this)}
               onChange={this.handleAirportChange.bind(this)}
+            />
+            <SelectAirport
+              name="destinationAirport"
+              label="To (in view mode)"
+              mode={EMode.VIEW}
+              placeholder="where do you want to go"
+              suggestedAirports={suggestAirports}
+              value="VIE"
+              onBlur={this.handleAirportBlur.bind(this)}
+              onChange={(name: string, value: string, airport: IAirport) => {
+                alert('ERROR, view mode control triggered onChange');
+                console.error('ERROR, view mode control triggered onChange', {name, value, airport});
+              }}
             />
             <DynaInput
               name="phoneNumber"

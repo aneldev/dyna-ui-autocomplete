@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactAutoComplete from 'react-autocomplete';
-import {DynaFieldWrapper, EColor, EStyle} from "dyna-ui-field-wrapper"
+import {DynaFieldWrapper, EColor, EMode, EStyle} from "dyna-ui-field-wrapper"
 import {DynaPickerContainer, EStyle as EPickerStyle, EColor as EPickerColor} from "dyna-ui-picker-container"
 
 import "./style.less";
@@ -12,9 +12,10 @@ import {faIcon} from "./utils";
 export {EColor, EStyle}
 
 export interface IDynaAutoCompleteProps<TItem> {
+  name: string;
   style?: EStyle;
   color?: EColor;
-  name: string;
+  mode?: EMode;
   label?: TContent;
   required?: TContent;
   isLoading?: boolean;
@@ -39,9 +40,10 @@ export interface IAutoCompleteValue<TItem> {
 
 export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompleteProps<TItem>> {
   static defaultProps: IDynaAutoCompleteProps<any> = {
+    name: '',
+    mode: EMode.EDIT,
     style: EStyle.INLINE_ROUNDED,
     color: EColor.WHITE_BLACK,
-    name: '',
     label: null,
     isLoading: false,
     items: [],
@@ -57,6 +59,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   };
 
   private handlerOnChange(event: Event, value: string): void {
+    if (this.props.mode === EMode.VIEW) return;
     const {name, items, onChange, getItemValue} = this.props;
     onChange(name, {
       value,
@@ -65,6 +68,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   }
 
   private handlerOnSelect(value: string, item: TItem): void {
+    if (this.props.mode === EMode.VIEW) return;
     if (this.props.value === value) return; // exit, nothing is changed
     const {name, onChange} = this.props;
     onChange(name, {
@@ -74,7 +78,11 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   }
 
   private renderMenu(children: any): JSX.Element {
-    if (this.props.items.length === 0) return <div/>;
+    let exit: boolean = false;
+    if (this.props.mode === EMode.VIEW) exit = true;
+    if (this.props.items.length === 0) exit = true;
+    if (exit) return <div/>;
+
     return (
       <div className="dyna-autocomplete-menu">
         <DynaPickerContainer
@@ -89,7 +97,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
 
   public render(): JSX.Element {
     const {
-      style, color,
+      mode, style, color,
       label, required, isLoading,
       items, value,
       selectOnBlur,
@@ -103,6 +111,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         className="dyna-autocomplete"
         style={style}
         color={color}
+        mode={mode}
         inputElementSelector="input"
         label={label}
         isLoading={isLoading ? faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null}
@@ -113,6 +122,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         <ReactAutoComplete
           items={items}
           value={value}
+          enabled={mode === EMode.EDIT}
           selectOnBlur={selectOnBlur}
           getItemValue={getItemValue}
           renderMenu={this.renderMenu.bind(this)}

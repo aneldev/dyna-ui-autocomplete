@@ -1,12 +1,13 @@
 import * as React from "react";
-import { EColor, EStyle } from "dyna-ui-field-wrapper";
+import { EColor, EMode, EStyle } from "dyna-ui-field-wrapper";
 import "./style.less";
 import "./color.less";
 export { EColor, EStyle };
 export interface IDynaAutoCompleteProps<TItem> {
+    name: string;
     style?: EStyle;
     color?: EColor;
-    name: string;
+    mode?: EMode;
     label?: TContent;
     required?: TContent;
     isLoading?: boolean;
