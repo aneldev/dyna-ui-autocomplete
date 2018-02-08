@@ -1,3 +1,3 @@
-import { DynaAutoComplete, IDynaAutoCompleteProps, IAutoCompleteValue, EStyle, EColor } from "./DynaAutoComplete";
+import { DynaAutoComplete, IDynaAutoCompleteProps, IAutoCompleteValue, EMode, EStyle, EColor } from "./DynaAutoComplete";
 import { debounce } from "./utils";
-export { DynaAutoComplete, IDynaAutoCompleteProps, IAutoCompleteValue, EStyle, EColor, debounce };
+export { DynaAutoComplete, IDynaAutoCompleteProps, IAutoCompleteValue, EMode, EStyle, EColor, debounce };

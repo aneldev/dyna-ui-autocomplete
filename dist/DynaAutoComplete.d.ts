@@ -2,7 +2,7 @@ import * as React from "react";
 import { EColor, EMode, EStyle } from "dyna-ui-field-wrapper";
 import "./style.less";
 import "./color.less";
-export { EColor, EStyle };
+export { EMode, EColor, EStyle };
 export interface IDynaAutoCompleteProps<TItem> {
     name: string;
     style?: EStyle;

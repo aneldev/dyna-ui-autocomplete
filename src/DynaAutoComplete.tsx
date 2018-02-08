@@ -9,7 +9,7 @@ import {faIcon} from "./utils";
 
 // help: https://github.com/reactjs/react-autocomplete
 
-export {EColor, EStyle}
+export {EMode, EColor, EStyle}
 
 export interface IDynaAutoCompleteProps<TItem> {
   name: string;
