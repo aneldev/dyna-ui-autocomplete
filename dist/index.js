@@ -1549,7 +1549,7 @@ var DynaAutoComplete = /** @class */ (function (_super) {
         if (this.props.items.length === 0)
             return React.createElement("div", null);
         return (React.createElement("div", { className: "dyna-autocomplete-menu" },
-            React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, { show: true, style: dyna_ui_picker_container_1.EStyle.ROUNDED, color: dyna_ui_picker_container_1.EColor.WHITE_BLACK }, children)));
+            React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, { show: true, style: dyna_ui_picker_container_1.EStyle.ROUNDED, color: dyna_ui_picker_container_1.EColor.WHITE_BLACK, responsive: false }, children)));
     };
     DynaAutoComplete.prototype.render = function () {
         var _a = this.props, style = _a.style, color = _a.color, label = _a.label, required = _a.required, isLoading = _a.isLoading, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, inputProps = _a.inputProps, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
@@ -3258,7 +3258,12 @@ var Autocomplete = function (_React$Component) {
           getItemValue = props.getItemValue;
 
       var index = highlightedIndex === null ? 0 : highlightedIndex;
-      var matchedItem = this.getFilteredItems(props)[index];
+      var items = this.getFilteredItems(props);
+      for (var i = 0; i < items.length; i++) {
+        if (props.isItemSelectable(items[index])) break;
+        index = (index + 1) % items.length;
+      }
+      var matchedItem = items[index] && props.isItemSelectable(items[index]) ? items[index] : null;
       if (value !== '' && matchedItem) {
         var itemValue = getItemValue(matchedItem);
         var itemValueDoesMatch = itemValue.toLowerCase().indexOf(value.toLowerCase()) === 0;
@@ -3324,12 +3329,12 @@ var Autocomplete = function (_React$Component) {
       var items = this.getFilteredItems(this.props).map(function (item, index) {
         var element = _this4.props.renderItem(item, _this4.state.highlightedIndex === index, { cursor: 'default' });
         return React.cloneElement(element, {
-          onMouseEnter: function onMouseEnter() {
+          onMouseEnter: _this4.props.isItemSelectable(item) ? function () {
             return _this4.highlightItemFromMouse(index);
-          },
-          onClick: function onClick() {
+          } : null,
+          onClick: _this4.props.isItemSelectable(item) ? function () {
             return _this4.selectItemFromMouse(item);
-          },
+          } : null,
           ref: function ref(e) {
             return _this4.refs['item-' + index] = e;
           }
@@ -3511,6 +3516,14 @@ Autocomplete.propTypes = {
    */
   shouldItemRender: PropTypes.func,
   /**
+   * Arguments: `item: Any`
+   *
+   * Invoked when attempting to select an item. The return value is used to
+   * determine whether the item should be selectable or not.
+   * By default all items are selectable.
+   */
+  isItemSelectable: PropTypes.func,
+  /**
    * Arguments: `itemA: Any, itemB: Any, value: String`
    *
    * The function which is used to sort `items` before display.
@@ -3616,6 +3629,9 @@ Autocomplete.defaultProps = {
   },
   onChange: function onChange() {},
   onSelect: function onSelect() {},
+  isItemSelectable: function isItemSelectable() {
+    return true;
+  },
   renderMenu: function renderMenu(items, value, style) {
     return React.createElement('div', { style: _extends({}, style, this.menuStyle), children: items });
   },
@@ -3636,33 +3652,53 @@ Autocomplete.defaultProps = {
 Autocomplete.keyDownHandlers = {
   ArrowDown: function ArrowDown(event) {
     event.preventDefault();
-    var itemsLength = this.getFilteredItems(this.props).length;
-    if (!itemsLength) return;
+    var items = this.getFilteredItems(this.props);
+    if (!items.length) return;
     var highlightedIndex = this.state.highlightedIndex;
 
-    var index = highlightedIndex === null || highlightedIndex === itemsLength - 1 ? 0 : highlightedIndex + 1;
-    this.setState({
-      highlightedIndex: index,
-      isOpen: true
-    });
+    var index = highlightedIndex === null ? -1 : highlightedIndex;
+    for (var i = 0; i < items.length; i++) {
+      var p = (index + i + 1) % items.length;
+      if (this.props.isItemSelectable(items[p])) {
+        index = p;
+        break;
+      }
+    }
+    if (index > -1 && index !== highlightedIndex) {
+      this.setState({
+        highlightedIndex: index,
+        isOpen: true
+      });
+    }
   },
   ArrowUp: function ArrowUp(event) {
     event.preventDefault();
-    var itemsLength = this.getFilteredItems(this.props).length;
-    if (!itemsLength) return;
+    var items = this.getFilteredItems(this.props);
+    if (!items.length) return;
     var highlightedIndex = this.state.highlightedIndex;
 
-    var index = highlightedIndex === 0 || highlightedIndex === null ? itemsLength - 1 : highlightedIndex - 1;
-    this.setState({
-      highlightedIndex: index,
-      isOpen: true
-    });
+    var index = highlightedIndex === null ? items.length : highlightedIndex;
+    for (var i = 0; i < items.length; i++) {
+      var p = (index - 1 + items.length) % items.length;
+      if (this.props.isItemSelectable(items[p])) {
+        index = p;
+        break;
+      }
+    }
+    if (index !== items.length) {
+      this.setState({
+        highlightedIndex: index,
+        isOpen: true
+      });
+    }
   },
   Enter: function Enter(event) {
     var _this7 = this;
 
     // Key code 229 is used for selecting items from character selectors (Pinyin, Kana, etc)
     if (event.keyCode !== 13) return;
+    // In case the user is currently hovering over the menu
+    this.setIgnoreBlur(false);
     if (!this.isOpen()) {
       // menu is closed so there is no selection to accept -> do nothing
       return;
@@ -11190,6 +11226,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
       Object.defineProperty(exports, "__esModule", { value: true });
       var DynaFieldWrapper_1 = __webpack_require__(10);
       exports.DynaFieldWrapper = DynaFieldWrapper_1.DynaFieldWrapper;
+      exports.EMode = DynaFieldWrapper_1.EMode;
       exports.EStyle = DynaFieldWrapper_1.EStyle;
       exports.EColor = DynaFieldWrapper_1.EColor;
 
@@ -11221,6 +11258,11 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
       var dyna_guid_1 = __webpack_require__(16);
       __webpack_require__(18);
       __webpack_require__(21);
+      var EMode;
+      (function (EMode) {
+        EMode["VIEW"] = "VIEW";
+        EMode["EDIT"] = "EDIT";
+      })(EMode = exports.EMode || (exports.EMode = {}));
       var EStyle;
       (function (EStyle) {
         EStyle["INLINE_ROUNDED"] = "INLINE_ROUNDED";
@@ -11257,14 +11299,16 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
             }
           }
         };
-        DynaFieldWrapper.prototype.handleContainerClick = function () {
+        DynaFieldWrapper.prototype.handleContainerClick = function (event) {
           var controlElement = this.controlContainerElement.querySelector(this.props.inputElementSelector);
+          if (event.target !== event.currentTarget) return;
           if (controlElement) controlElement.focus();
         };
         DynaFieldWrapper.prototype.render = function () {
           var _this = this;
           var _a = this.props,
               cn = _a.className,
+              mode = _a.mode,
               style = _a.style,
               color = _a.color,
               label = _a.label,
@@ -11273,13 +11317,14 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
               children = _a.children,
               validationMessage = _a.validationMessage,
               footer = _a.footer;
-          var className = [cn || '', 'dyna-ui-field-wrapper', "dyna-ui-field-wrapper-style-" + style, "dyna-ui-field-wrapper-color-" + color].join(' ').trim();
-          return React.createElement("div", { className: className, onClick: this.handleContainerClick.bind(this) }, label ? React.createElement("div", { className: "dyna-ui-label" }, React.createElement("label", { htmlFor: this.internalId }, label)) : null, React.createElement("div", { className: "dyna-ui-field-wrapper-container" }, React.createElement("div", { className: "dyna-ui-field-wrapper-required" }, required), React.createElement("div", { className: "dyna-ui-field-wrapper-isLoading" }, isLoading), React.createElement("div", { className: "dyna-ui-field-wrapper-control-container", ref: function ref(element) {
+          var className = [cn || '', 'dyna-ui-field-wrapper', "dyna-ui-field-wrapper--mode-" + mode, "dyna-ui-field-wrapper--style-" + style, "dyna-ui-field-wrapper--color-" + color].join(' ').trim();
+          return React.createElement("div", { className: className }, label ? React.createElement("div", { className: "dyna-ui-label", onClick: this.handleContainerClick.bind(this) }, React.createElement("label", { htmlFor: this.internalId }, label)) : null, React.createElement("div", { className: "dyna-ui-field-wrapper-container", onClick: this.handleContainerClick.bind(this) }, React.createElement("div", { className: "dyna-ui-field-wrapper-required", onClick: this.handleContainerClick.bind(this) }, required), React.createElement("div", { className: "dyna-ui-field-wrapper-isLoading", onClick: this.handleContainerClick.bind(this) }, isLoading), React.createElement("div", { className: "dyna-ui-field-wrapper-control-container", ref: function ref(element) {
               return _this.controlContainerElement = element;
-            } }, children), React.createElement("div", { className: "dyna-ui-field-wrapper-validation-message" }, validationMessage), React.createElement("div", { className: "dyna-ui-field-wrapper-footer" }, footer)));
+            }, onClick: this.handleContainerClick.bind(this) }, children), React.createElement("div", { className: "dyna-ui-field-wrapper-validation-message", onClick: this.handleContainerClick.bind(this) }, validationMessage), React.createElement("div", { className: "dyna-ui-field-wrapper-footer", onClick: this.handleContainerClick.bind(this) }, footer)));
         };
         DynaFieldWrapper.defaultProps = {
           className: null,
+          mode: EMode.EDIT,
           style: EStyle.INLINE_ROUNDED,
           color: EColor.WHITE_BLACK,
           label: null,
@@ -13122,7 +13167,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 
       // module
-      exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border: 1px solid;\n  border-radius: 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-label {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  border-right: 1px solid;\n  padding: 16px;\n  font-size: 14px;\n  line-height: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-label label {\n  position: relative;\n  top: 2px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-field-wrapper-container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 100%;\n          flex: 1 1 100%;\n  padding: 16px;\n  border-radius: 0 4px 4px 0;\n  position: relative;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  position: absolute;\n  top: 4px;\n  right: 16px;\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  position: absolute;\n  bottom: 4px;\n  right: 16px;\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container > * {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  position: absolute;\n  font-size: 12px;\n  line-height: 14px;\n}\n", ""]);
+      exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border: 1px solid;\n  border-radius: 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-label {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  border-right: 1px solid;\n  padding: 16px;\n  font-size: 14px;\n  line-height: 16px;\n  border-radius: 4px 0 0 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-label label {\n  position: relative;\n  top: 2px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 100%;\n          flex: 1 1 100%;\n  padding: 16px;\n  position: relative;\n  border-radius: 0 4px 4px 0;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  position: absolute;\n  top: 4px;\n  right: 16px;\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  position: absolute;\n  bottom: 4px;\n  right: 16px;\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container > * {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  position: absolute;\n  font-size: 12px;\n  line-height: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container input {\n  cursor: default;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-EDIT {\n  cursor: pointer;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-EDIT .dyna-ui-label label {\n  cursor: pointer;\n}\n", ""]);
 
       // exports
 
@@ -13266,7 +13311,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 
       // module
-      exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-WHITE_BLACK {\n  border-color: black;\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-GRAY_WHITE_BLACK {\n  border-color: #434343;\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-GRAY_WHITE_BLACK .dyna-ui-label {\n  background-color: #434343;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-GRAY_WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  color: #2A2A2A;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-GRAY_WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-WHITE_RED {\n  border-color: red;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-WHITE_RED .dyna-ui-label {\n  color: white;\n  background-color: red;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-WHITE_RED .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-WHITE_RED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-BLACK_WHITE {\n  border-color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-BLACK_WHITE .dyna-ui-label {\n  color: white;\n  background-color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-BLACK_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-BLACK_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-TRANSPARENT_WHITE {\n  border-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-TRANSPARENT_WHITE .dyna-ui-label {\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  color: white;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-ORANGE_WHITE {\n  border-color: #eb8a0f;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-ORANGE_WHITE .dyna-ui-label {\n  background-color: #eb8a0f;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-ORANGE_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-ORANGE_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper-color-ORANGE_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n", ""]);
+      exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK {\n  border-color: black;\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK {\n  border-color: white;\n  background-color: #2A2A2A;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK .dyna-ui-label {\n  border-color: white;\n  background-color: #434343;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  color: #2A2A2A;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #434343;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE_BLACK.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container input {\n  background-color: #434343;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED {\n  border-color: red;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-label {\n  border-color: #ff5455;\n  color: white;\n  background-color: red;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: red;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container input {\n  background-color: red;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE {\n  border-color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-label {\n  border-color: gray;\n  color: white;\n  background-color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: black;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container input {\n  background-color: black;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE {\n  border-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-label {\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  color: white;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container input {\n  color: white;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE {\n  border-color: #FF6900;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-label {\n  border-color: #FFAE62;\n  background-color: #FF6900;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: tomato;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #FF6900;\n  color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container input {\n  background-color: #FF6900;\n  color: white;\n}\n", ""]);
 
       // exports
 
@@ -14360,15 +14405,17 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
               show = _a.show,
               children = _a.children,
               style = _a.style,
-              color = _a.color;
-          var className = ['dyna-ui-picker-container', "dyna-ui-picker-container-style-" + style, "dyna-ui-picker-container-color-" + color, show ? '--show' : '--hide'].join(' ').trim();
+              color = _a.color,
+              responsive = _a.responsive;
+          var className = ['dyna-ui-picker-container', "dyna-ui-picker-container--style-" + style, "dyna-ui-picker-container--color-" + color, "dyna-ui-picker-container--" + (show ? 'show' : 'hide'), "dyna-ui-picker-container--" + (responsive ? 'responsive' : '')].join(' ').trim();
           return React.createElement("div", { className: className }, children);
         };
         DynaPickerContainer.defaultProps = {
           show: true,
           children: null,
           style: EStyle.ROUNDED,
-          color: EColor.WHITE_BLACK
+          color: EColor.WHITE_BLACK,
+          responsive: true
         };
         return DynaPickerContainer;
       }(React.Component);
@@ -16024,7 +16071,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 
       // module
-      exports.push([module.i, ".dyna-ui-picker-container-style-INLINE_ROUNDED {\n  position: absolute;\n  border-style: solid;\n  border-width: 1px;\n  border-radius: 10px;\n  margin-top: 12px;\n}\n.dyna-ui-picker-container-style-INLINE_ROUNDED:before,\n.dyna-ui-picker-container-style-INLINE_ROUNDED:after {\n  content: '';\n  display: block;\n  position: absolute;\n  left: 15px;\n  width: 0;\n  height: 0;\n  border-style: solid;\n  top: -30px;\n  border-color: transparent transparent deeppink transparent;\n  border-width: 15px;\n}\n.dyna-ui-picker-container-style-INLINE_ROUNDED:after {\n  top: -28px;\n  left: 16px;\n  border-width: 14px;\n}\n.dyna-ui-picker-container .\\--show {\n  display: block;\n}\n.dyna-ui-picker-container .\\--hide {\n  display: none;\n}\n", ""]);
+      exports.push([module.i, ".dyna-ui-picker-container--style-INLINE_ROUNDED {\n  position: absolute;\n  border-style: solid;\n  border-width: 1px;\n  border-radius: 10px;\n  margin-top: 12px;\n}\n.dyna-ui-picker-container--style-INLINE_ROUNDED:before,\n.dyna-ui-picker-container--style-INLINE_ROUNDED:after {\n  content: '';\n  display: block;\n  position: absolute;\n  left: 15px;\n  width: 0;\n  height: 0;\n  border-style: solid;\n  top: -30px;\n  border-color: transparent transparent deeppink transparent;\n  border-width: 15px;\n}\n.dyna-ui-picker-container--style-INLINE_ROUNDED:after {\n  top: -28px;\n  left: 16px;\n  border-width: 14px;\n}\n@media (max-width: 768px) {\n  .dyna-ui-picker-container--style-INLINE_ROUNDED.dyna-ui-picker-container--responsive {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    border: none;\n    margin: 0;\n    border-radius: 0;\n  }\n}\n.dyna-ui-picker-container--show {\n  display: block;\n}\n.dyna-ui-picker-container--hide {\n  display: none;\n}\n", ""]);
 
       // exports
 
@@ -16168,7 +16215,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 
       // module
-      exports.push([module.i, ".dyna-ui-picker-container-color-WHITE_BLACK {\n  color: black;\n  border-color: black;\n  background-color: white;\n}\n.dyna-ui-picker-container-color-WHITE_BLACK:before {\n  border-bottom-color: black;\n}\n.dyna-ui-picker-container-color-WHITE_BLACK:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container-color-GRAY_WHITE_BLACK {\n  color: #434343;\n  border-color: #434343;\n  background-color: white;\n}\n.dyna-ui-picker-container-color-GRAY_WHITE_BLACK:before {\n  border-bottom-color: #434343;\n}\n.dyna-ui-picker-container-color-GRAY_WHITE_BLACK:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container-color-WHITE_RED {\n  color: red;\n  border-color: red;\n  background-color: white;\n}\n.dyna-ui-picker-container-color-WHITE_RED:before {\n  border-bottom-color: red;\n}\n.dyna-ui-picker-container-color-WHITE_RED:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container-color-BLACK_WHITE {\n  color: white;\n  border-color: black;\n  background-color: black;\n}\n.dyna-ui-picker-container-color-BLACK_WHITE:before {\n  border-bottom-color: black;\n}\n.dyna-ui-picker-container-color-BLACK_WHITE:after {\n  border-bottom-color: black;\n}\n.dyna-ui-picker-container-color-TRANSPARENT_WHITE {\n  color: white;\n  border-color: white;\n  background-color: transparent;\n}\n.dyna-ui-picker-container-color-TRANSPARENT_WHITE:before {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container-color-TRANSPARENT_WHITE:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container-color-ORANGE_WHITE {\n  color: #eb8a0f;\n  border-color: #eb8a0f;\n  background-color: white;\n}\n.dyna-ui-picker-container-color-ORANGE_WHITE:before {\n  border-bottom-color: #eb8a0f;\n}\n.dyna-ui-picker-container-color-ORANGE_WHITE:after {\n  border-bottom-color: white;\n}\n", ""]);
+      exports.push([module.i, ".dyna-ui-picker-container--color-WHITE_BLACK {\n  color: black;\n  border-color: black;\n  background-color: white;\n}\n.dyna-ui-picker-container--color-WHITE_BLACK:before {\n  border-bottom-color: black;\n}\n.dyna-ui-picker-container--color-WHITE_BLACK:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container--color-GRAY_WHITE_BLACK {\n  color: #434343;\n  border-color: #434343;\n  background-color: white;\n}\n.dyna-ui-picker-container--color-GRAY_WHITE_BLACK:before {\n  border-bottom-color: #434343;\n}\n.dyna-ui-picker-container--color-GRAY_WHITE_BLACK:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container--color-WHITE_RED {\n  color: red;\n  border-color: red;\n  background-color: white;\n}\n.dyna-ui-picker-container--color-WHITE_RED:before {\n  border-bottom-color: red;\n}\n.dyna-ui-picker-container--color-WHITE_RED:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container--color-BLACK_WHITE {\n  color: white;\n  border-color: black;\n  background-color: black;\n}\n.dyna-ui-picker-container--color-BLACK_WHITE:before {\n  border-bottom-color: black;\n}\n.dyna-ui-picker-container--color-BLACK_WHITE:after {\n  border-bottom-color: black;\n}\n.dyna-ui-picker-container--color-TRANSPARENT_WHITE {\n  color: white;\n  border-color: white;\n  background-color: transparent;\n}\n.dyna-ui-picker-container--color-TRANSPARENT_WHITE:before {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container--color-TRANSPARENT_WHITE:after {\n  border-bottom-color: white;\n}\n.dyna-ui-picker-container--color-ORANGE_WHITE {\n  color: #FF6900;\n  border-color: #FF6900;\n  background-color: white;\n}\n.dyna-ui-picker-container--color-ORANGE_WHITE:before {\n  border-bottom-color: #FF6900;\n}\n.dyna-ui-picker-container--color-ORANGE_WHITE:after {\n  border-bottom-color: white;\n}\n", ""]);
 
       // exports
 

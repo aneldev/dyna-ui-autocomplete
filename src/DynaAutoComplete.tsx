@@ -81,6 +81,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
           show
           style={EPickerStyle.ROUNDED}
           color={EPickerColor.WHITE_BLACK}
+          responsive={false}
         >{children}</DynaPickerContainer>
       </div>
     )
