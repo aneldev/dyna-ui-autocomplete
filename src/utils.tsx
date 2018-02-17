@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Timer = NodeJS.Timer;
 
 export const faIcon = (awesomeFontIconName:string, className:string='') => <i className={`fa fa-${awesomeFontIconName} ${className}`.trim()} aria-hidden="true" />;
 

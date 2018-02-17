@@ -78,10 +78,8 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
   }
 
   private renderMenu(children: any): JSX.Element {
-    let exit: boolean = false;
-    if (this.props.mode === EMode.VIEW) exit = true;
-    if (this.props.items.length === 0) exit = true;
-    if (exit) return <div/>;
+    if (this.props.mode === EMode.VIEW) return <div/>;
+    if (!children || !children.length) return <div/>;
 
     return (
       <div className="dyna-autocomplete-menu">
