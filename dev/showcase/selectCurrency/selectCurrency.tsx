@@ -4,6 +4,7 @@ import {IShowcaseView} from "dyna-showcase";
 import {DynaAutoComplete, IAutoCompleteValue} from "../../../src";
 
 import "./selectCurrency.less";
+import {ESize} from "dyna-ui-field-wrapper";
 
 export const selectCurrencyShowcase: IShowcaseView = {
   slug: 'currency',
@@ -75,6 +76,7 @@ export const selectCurrencyShowcase: IShowcaseView = {
             name="currency"
             label="Currency"
             items={currencies}
+            size={ESize.SMALL}
             selectOnBlur
             inputProps={{
               placeholder: 'select currency',

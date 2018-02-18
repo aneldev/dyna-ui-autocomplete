@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactAutoComplete from 'react-autocomplete';
-import {DynaFieldWrapper, EColor, EMode, EStyle} from "dyna-ui-field-wrapper"
+import {DynaFieldWrapper, EColor, EMode, EStyle, ESize} from "dyna-ui-field-wrapper"
 import {DynaPickerContainer, EStyle as EPickerStyle, EColor as EPickerColor} from "dyna-ui-picker-container"
 
 import "./style.less";
@@ -15,6 +15,7 @@ export interface IDynaAutoCompleteProps<TItem> {
   name: string;
   style?: EStyle;
   color?: EColor;
+  size?: ESize;
   mode?: EMode;
   label?: TContent;
   required?: TContent;
@@ -44,6 +45,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     mode: EMode.EDIT,
     style: EStyle.INLINE_ROUNDED,
     color: EColor.WHITE_BLACK,
+    size: ESize.MEDIUM,
     label: null,
     isLoading: false,
     items: [],
@@ -95,7 +97,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
 
   public render(): JSX.Element {
     const {
-      mode, style, color,
+      mode, style, color, size,
       label, required, isLoading,
       items, value,
       selectOnBlur,
@@ -109,6 +111,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         className="dyna-autocomplete"
         style={style}
         color={color}
+        size={size}
         mode={mode}
         inputElementSelector="input"
         label={label}
