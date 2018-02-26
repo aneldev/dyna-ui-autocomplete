@@ -8,18 +8,20 @@ exports[`Home has expected content with deep render 1`] = `
   inputElementSelector="input"
   isLoading={null}
   label={null}
+  mode="EDIT"
+  onClick={[Function]}
+  onFocus={[Function]}
   required={null}
+  size="MEDIUM"
   style="INLINE_ROUNDED"
   validationMessage={null}
 >
   <Autocomplete
     autoHighlight={true}
+    enabled={true}
     getItemValue={[Function]}
-    inputProps={
-      Object {
-        "onBlur": [Function],
-      }
-    }
+    inputProps={Object {}}
+    isItemSelectable={[Function]}
     items={Array []}
     menuStyle={
       Object {

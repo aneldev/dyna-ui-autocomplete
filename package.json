@@ -10,6 +10,7 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.config.js --port 3200 --devtool eval --progress --inline --hot --content-base dev/public --open --host 127.0.0.1",
+    "build-analyze": "set NODE_ENV=production && webpack --config webpack.dist.analyze.config.js",
     "build": "rimraf ./dist/ && npm run .build-index.d.ts && npm run .build-dist",
     ".build-index.d.ts": "tsc && rm ./dist/index.js && npm run .build-index.d.ts-clear",
     ".build-index.d.ts-clear": "cd dist/ && find . -name \\*.js -delete && cd ..",
@@ -22,10 +23,11 @@
     "test": "jest --coverage --no-cache --runInBand",
     "test-watch": "jest --watch --verbose --runInBand",
     "clear-npm-cache": "npm cache clear --force",
+    "update-release": "npm update && git add -u && git add -A && git commit -m \"update\" && npm run release",
     "reinstall": "rm ./package-lock.json; rm -rf ./node_modules; npm install"
   },
   "keywords": [],
-  "author": "",
+  "author": "Anel dev",
   "license": "MIT",
   "dependencies": {
     "dyna-ui-field-wrapper": "^1.6.2",
@@ -62,6 +64,7 @@
     "enzyme-adapter-react-16": "^1.0.0",
     "enzyme-to-json": "^3.3.1",
     "file-loader": "^0.9.0",
+    "font-awesome": "^4.7.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.1.0",
     "jest-cli": "^20.0.4",
@@ -85,11 +88,12 @@
     "typescript": "^2.7.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.11.0",
+    "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.11.1"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./tests/setup/testsetup.js",
+    "setupTestFrameworkScriptFile": "./tests/setup/testSetup.js",
     "automock": false,
     "collectCoverage": false,
     "testEnvironment": "jsdom",
