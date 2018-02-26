@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {DynaInput} from "dyna-ui-input";
-import {EColor, EMode} from "dyna-ui-field-wrapper";
 import {IShowcaseView} from "dyna-showcase/dist/interfaces";
 
-import {DynaAutoComplete, IAutoCompleteValue} from "../../../src/DynaAutoComplete";
+import {DynaAutoComplete, IAutoCompleteValue, EMode, EColor} from "../../../src";
+
 import {faIcon} from "../../../src/utils";
 
 const selectAirportStyles: any = require('./select-airport.module.less');
@@ -149,7 +149,7 @@ export const selectAirportShowcase: IShowcaseView = {
         return (
           <DynaAutoComplete
             name={name}
-            color={EColor.GRAY_WHITE_BLACK}
+            color={EColor.GRAY_WHITE}
             mode={mode || EMode.EDIT}
             label={label}
             isLoading={isLoading}

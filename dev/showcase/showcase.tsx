@@ -3,9 +3,6 @@ import {faIcon, IShowcase} from "dyna-showcase";
 
 import {Logo} from "../logo";
 import {selectAirportShowcase} from "./airports/selectAirportShowcase";
-import {DynaAutoComplete} from "../../src";
-import {EMode} from "dyna-ui-field-wrapper";
-import {IAutoCompleteValue} from "../../src/DynaAutoComplete";
 import {selectCurrencyShowcase} from "./selectCurrency/selectCurrency";
 
 require('./showcase.less');
