@@ -3162,7 +3162,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof2(exports)) === 'object') exports["dyna-ui-field-wrapper"] = factory(require("react"));else root["dyna-ui-field-wrapper"] = factory(root["react"]);
-})(typeof self !== 'undefined' ? self : undefined, function (__WEBPACK_EXTERNAL_MODULE_5__) {
+})(typeof self !== 'undefined' ? self : undefined, function (__WEBPACK_EXTERNAL_MODULE_6__) {
 	return (/******/function (modules) {
 			// webpackBootstrap
 			/******/ // The module cache
@@ -3237,12 +3237,42 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 			/******/__webpack_require__.p = "/dist/";
 			/******/
 			/******/ // Load entry module and return exports
-			/******/return __webpack_require__(__webpack_require__.s = 2);
+			/******/return __webpack_require__(__webpack_require__.s = 3);
 			/******/
 		}(
 		/************************************************************************/
 		/******/[
 		/* 0 */
+		/***/function (module, exports, __webpack_require__) {
+
+			"use strict";
+
+			module.exports = function (module) {
+				if (!module.webpackPolyfill) {
+					module.deprecate = function () {};
+					module.paths = [];
+					// module.parent = undefined by default
+					if (!module.children) module.children = [];
+					Object.defineProperty(module, "loaded", {
+						enumerable: true,
+						get: function get() {
+							return module.l;
+						}
+					});
+					Object.defineProperty(module, "id", {
+						enumerable: true,
+						get: function get() {
+							return module.i;
+						}
+					});
+					module.webpackPolyfill = 1;
+				}
+				return module;
+			};
+
+			/***/
+		},
+		/* 1 */
 		/***/function (module, exports, __webpack_require__) {
 
 			"use strict";
@@ -3325,7 +3355,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 1 */
+		/* 2 */
 		/***/function (module, exports, __webpack_require__) {
 
 			/*
@@ -3371,7 +3401,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 			var singletonCounter = 0;
 			var stylesInsertedAtTop = [];
 
-			var fixUrls = __webpack_require__(10);
+			var fixUrls = __webpack_require__(11);
 
 			module.exports = function (list, options) {
 				if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -3671,20 +3701,20 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 2 */
+		/* 3 */
 		/***/function (module, exports, __webpack_require__) {
 
-			module.exports = __webpack_require__(3);
+			module.exports = __webpack_require__(4);
 
 			/***/
 		},
-		/* 3 */
+		/* 4 */
 		/***/function (module, exports, __webpack_require__) {
 
 			"use strict";
 
 			Object.defineProperty(exports, "__esModule", { value: true });
-			var DynaFieldWrapper_1 = __webpack_require__(4);
+			var DynaFieldWrapper_1 = __webpack_require__(5);
 			exports.DynaFieldWrapper = DynaFieldWrapper_1.DynaFieldWrapper;
 			exports.EMode = DynaFieldWrapper_1.EMode;
 			exports.EStyle = DynaFieldWrapper_1.EStyle;
@@ -3693,7 +3723,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 4 */
+		/* 5 */
 		/***/function (module, exports, __webpack_require__) {
 
 			"use strict";
@@ -3715,10 +3745,12 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 				};
 			}();
 			Object.defineProperty(exports, "__esModule", { value: true });
-			var React = __webpack_require__(5);
-			var dyna_guid_1 = __webpack_require__(6);
-			__webpack_require__(8);
-			__webpack_require__(11);
+			var React = __webpack_require__(6);
+			var dyna_guid_1 = __webpack_require__(7);
+			var dyna_ui_styles_1 = __webpack_require__(8);
+			exports.EColor = dyna_ui_styles_1.EColor;
+			__webpack_require__(9);
+			__webpack_require__(12);
 			var EMode;
 			(function (EMode) {
 				EMode["VIEW"] = "VIEW";
@@ -3728,15 +3760,6 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 			(function (EStyle) {
 				EStyle["INLINE_ROUNDED"] = "INLINE_ROUNDED";
 			})(EStyle = exports.EStyle || (exports.EStyle = {}));
-			var EColor;
-			(function (EColor) {
-				EColor["WHITE_BLACK"] = "WHITE_BLACK";
-				EColor["GRAY_WHITE"] = "GRAY_WHITE";
-				EColor["WHITE_RED"] = "WHITE_RED";
-				EColor["BLACK_WHITE"] = "BLACK_WHITE";
-				EColor["ORANGE_WHITE"] = "ORANGE_WHITE";
-				EColor["TRANSPARENT_WHITE"] = "TRANSPARENT_WHITE";
-			})(EColor = exports.EColor || (exports.EColor = {}));
 			var ESize;
 			(function (ESize) {
 				ESize["XSMALL"] = "XSMALL";
@@ -3806,7 +3829,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 					className: null,
 					mode: EMode.EDIT,
 					style: EStyle.INLINE_ROUNDED,
-					color: EColor.WHITE_BLACK,
+					color: dyna_ui_styles_1.EColor.WHITE_BLACK,
 					size: ESize.MEDIUM,
 					label: null,
 					required: null,
@@ -3828,14 +3851,14 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 5 */
+		/* 6 */
 		/***/function (module, exports) {
 
-			module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
+			module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
 
 			/***/
 		},
-		/* 6 */
+		/* 7 */
 		/***/function (module, exports, __webpack_require__) {
 
 			"use strict";
@@ -3979,47 +4002,155 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 					);
 				});
 				/* WEBPACK VAR INJECTION */
-			}).call(exports, __webpack_require__(7)(module));
-
-			/***/
-		},
-		/* 7 */
-		/***/function (module, exports, __webpack_require__) {
-
-			"use strict";
-
-			module.exports = function (module) {
-				if (!module.webpackPolyfill) {
-					module.deprecate = function () {};
-					module.paths = [];
-					// module.parent = undefined by default
-					if (!module.children) module.children = [];
-					Object.defineProperty(module, "loaded", {
-						enumerable: true,
-						get: function get() {
-							return module.l;
-						}
-					});
-					Object.defineProperty(module, "id", {
-						enumerable: true,
-						get: function get() {
-							return module.i;
-						}
-					});
-					module.webpackPolyfill = 1;
-				}
-				return module;
-			};
+			}).call(exports, __webpack_require__(0)(module));
 
 			/***/
 		},
 		/* 8 */
 		/***/function (module, exports, __webpack_require__) {
 
+			"use strict";
+			/* WEBPACK VAR INJECTION */
+			(function (module) {
+				var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;
+
+				var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+					return typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
+				} : function (obj) {
+					return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof2(obj);
+				};
+
+				(function webpackUniversalModuleDefinition(root, factory) {
+					if ((false ? 'undefined' : _typeof(exports)) === 'object' && (false ? 'undefined' : _typeof(module)) === 'object') module.exports = factory();else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = factory, __WEBPACK_AMD_DEFINE_RESULT__ = typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? __WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__) : __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object') exports["dyna-ui-styles"] = factory();else root["dyna-ui-styles"] = factory();
+				})(undefined, function () {
+					return (/******/function (modules) {
+							// webpackBootstrap
+							/******/ // The module cache
+							/******/var installedModules = {};
+							/******/
+							/******/ // The require function
+							/******/function __webpack_require__(moduleId) {
+								/******/
+								/******/ // Check if module is in cache
+								/******/if (installedModules[moduleId]) {
+									/******/return installedModules[moduleId].exports;
+									/******/
+								}
+								/******/ // Create a new module (and put it into the cache)
+								/******/var module = installedModules[moduleId] = {
+									/******/i: moduleId,
+									/******/l: false,
+									/******/exports: {}
+									/******/ };
+								/******/
+								/******/ // Execute the module function
+								/******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+								/******/
+								/******/ // Flag the module as loaded
+								/******/module.l = true;
+								/******/
+								/******/ // Return the exports of the module
+								/******/return module.exports;
+								/******/
+							}
+							/******/
+							/******/
+							/******/ // expose the modules object (__webpack_modules__)
+							/******/__webpack_require__.m = modules;
+							/******/
+							/******/ // expose the module cache
+							/******/__webpack_require__.c = installedModules;
+							/******/
+							/******/ // identity function for calling harmony imports with the correct context
+							/******/__webpack_require__.i = function (value) {
+								return value;
+							};
+							/******/
+							/******/ // define getter function for harmony exports
+							/******/__webpack_require__.d = function (exports, name, getter) {
+								/******/if (!__webpack_require__.o(exports, name)) {
+									/******/Object.defineProperty(exports, name, {
+										/******/configurable: false,
+										/******/enumerable: true,
+										/******/get: getter
+										/******/ });
+									/******/
+								}
+								/******/
+							};
+							/******/
+							/******/ // getDefaultExport function for compatibility with non-harmony modules
+							/******/__webpack_require__.n = function (module) {
+								/******/var getter = module && module.__esModule ?
+								/******/function getDefault() {
+									return module['default'];
+								} :
+								/******/function getModuleExports() {
+									return module;
+								};
+								/******/__webpack_require__.d(getter, 'a', getter);
+								/******/return getter;
+								/******/
+							};
+							/******/
+							/******/ // Object.prototype.hasOwnProperty.call
+							/******/__webpack_require__.o = function (object, property) {
+								return Object.prototype.hasOwnProperty.call(object, property);
+							};
+							/******/
+							/******/ // __webpack_public_path__
+							/******/__webpack_require__.p = "/dist/";
+							/******/
+							/******/ // Load entry module and return exports
+							/******/return __webpack_require__(__webpack_require__.s = 1);
+							/******/
+						}(
+						/************************************************************************/
+						/******/[
+						/* 0 */
+						/***/function (module, exports, __webpack_require__) {
+
+							"use strict";
+
+							Object.defineProperty(exports, "__esModule", { value: true });
+							var EColor;
+							(function (EColor) {
+								EColor["BLACK_WHITE"] = "BLACK_WHITE";
+								EColor["BLACK_ORANGE"] = "BLACK_ORANGE";
+								EColor["TRANSPARENT_ORANGE"] = "TRANSPARENT_ORANGE";
+								EColor["TRANSPARENT_WHITE"] = "TRANSPARENT_WHITE";
+								EColor["ORANGE_WHITE"] = "ORANGE_WHITE";
+								EColor["RED_WHITE"] = "RED_WHITE";
+								EColor["GREY_WHITE"] = "GREY_WHITE";
+								EColor["WHITE_BLACK"] = "WHITE_BLACK";
+								EColor["WHITE_RED"] = "WHITE_RED";
+								EColor["WHITE_ORANGE"] = "WHITE_ORANGE";
+							})(EColor = exports.EColor || (exports.EColor = {}));
+
+							/***/
+						},
+						/* 1 */
+						/***/function (module, exports, __webpack_require__) {
+
+							module.exports = __webpack_require__(0);
+
+							/***/
+						}]
+						/******/)
+					);
+				});
+				/* WEBPACK VAR INJECTION */
+			}).call(exports, __webpack_require__(0)(module));
+
+			/***/
+		},
+		/* 9 */
+		/***/function (module, exports, __webpack_require__) {
+
 			// style-loader: Adds some css to the DOM by adding a <style> tag
 
 			// load the styles
-			var content = __webpack_require__(9);
+			var content = __webpack_require__(10);
 			if (typeof content === 'string') content = [[module.i, content, '']];
 			// Prepare cssTransformation
 			var transform;
@@ -4027,7 +4158,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 			var options = {};
 			options.transform = transform;
 			// add the styles to the DOM
-			var update = __webpack_require__(1)(content, options);
+			var update = __webpack_require__(2)(content, options);
 			if (content.locals) module.exports = content.locals;
 			// Hot Module Replacement
 			if (false) {
@@ -4047,22 +4178,22 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 9 */
+		/* 10 */
 		/***/function (module, exports, __webpack_require__) {
 
-			exports = module.exports = __webpack_require__(0)(false);
+			exports = module.exports = __webpack_require__(1)(false);
 			// imports
 
 
 			// module
-			exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-label label {\n  margin: 0;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container input,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container select {\n  font-size: inherit;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border: 1px solid;\n  border-radius: 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-label {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  border-right: 1px solid;\n  border-radius: 4px 0 0 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 100%;\n          flex: 1 1 100%;\n  position: relative;\n  border-radius: 0 4px 4px 0;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  position: absolute;\n  top: 4px;\n  right: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  position: absolute;\n  bottom: 4px;\n  right: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container > * {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  position: absolute;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-label,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-label {\n  padding: 12px;\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container {\n  padding: 8px 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  position: relative;\n  top: 3px;\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  font-size: 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-label {\n  padding: 16px;\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container {\n  padding: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  font-size: 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-label {\n  padding: 24px;\n  font-size: 20px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container {\n  padding: 24px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  font-size: 20px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  font-size: 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  cursor: default;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-EDIT {\n  cursor: pointer;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-EDIT .dyna-ui-label label {\n  cursor: pointer;\n}\n", ""]);
+			exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-label label {\n  margin: 0;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  opacity: 1;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  opacity: 1;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container input,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container select {\n  font-size: inherit;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  opacity: 1;\n  -webkit-transition: opacity 250ms ease-in-out;\n  transition: opacity 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border: 1px solid;\n  border-radius: 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-label {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  border-right: 1px solid;\n  border-radius: 4px 0 0 4px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 100%;\n          flex: 1 1 100%;\n  position: relative;\n  border-radius: 0 4px 4px 0;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  position: absolute;\n  top: 4px;\n  right: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  position: absolute;\n  bottom: 4px;\n  right: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container > * {\n  width: 100%;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  position: absolute;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-label,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-label {\n  padding: 12px;\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container {\n  padding: 8px 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  position: relative;\n  top: 3px;\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-XSMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-SMALL .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  font-size: 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-label {\n  padding: 16px;\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container {\n  padding: 16px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  font-size: 14px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-MEDIUM .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  font-size: 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-label {\n  padding: 24px;\n  font-size: 20px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container {\n  padding: 24px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading {\n  font-size: 11px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  font-size: 20px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--size-LARGE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  font-size: 12px;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-required,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-isLoading,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  opacity: 0.01;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container {\n  cursor: default;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-EDIT {\n  cursor: pointer;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--mode-EDIT .dyna-ui-label label {\n  cursor: pointer;\n}\n", ""]);
 
 			// exports
 
 
 			/***/
 		},
-		/* 10 */
+		/* 11 */
 		/***/function (module, exports, __webpack_require__) {
 
 			"use strict";
@@ -4157,13 +4288,13 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 11 */
+		/* 12 */
 		/***/function (module, exports, __webpack_require__) {
 
 			// style-loader: Adds some css to the DOM by adding a <style> tag
 
 			// load the styles
-			var content = __webpack_require__(12);
+			var content = __webpack_require__(13);
 			if (typeof content === 'string') content = [[module.i, content, '']];
 			// Prepare cssTransformation
 			var transform;
@@ -4171,7 +4302,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 			var options = {};
 			options.transform = transform;
 			// add the styles to the DOM
-			var update = __webpack_require__(1)(content, options);
+			var update = __webpack_require__(2)(content, options);
 			if (content.locals) module.exports = content.locals;
 			// Hot Module Replacement
 			if (false) {
@@ -4191,15 +4322,15 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 
 			/***/
 		},
-		/* 12 */
+		/* 13 */
 		/***/function (module, exports, __webpack_require__) {
 
-			exports = module.exports = __webpack_require__(0)(false);
+			exports = module.exports = __webpack_require__(1)(false);
 			// imports
 
 
 			// module
-			exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n  -webkit-transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container input,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container select {\n  color: inherit;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK {\n  border-color: #222223;\n  background-color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #D0D3D4;\n  color: #222223;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE {\n  border-color: #D0D3D4;\n  background-color: #65665C;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE .dyna-ui-label {\n  border-color: #D0D3D4;\n  background-color: #51534A;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n  color: #51534A;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GRAY_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #51534A;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED {\n  border-color: #E4002B;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-label {\n  border-color: #C8102E;\n  color: #D0D3D4;\n  background-color: #E4002B;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #E4002B;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE {\n  border-color: #222223;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-label {\n  border-color: #212721;\n  color: #D0D3D4;\n  background-color: #222223;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #222223;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE {\n  border-color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-label {\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container {\n  color: #D0D3D4;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: transparent;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE {\n  border-color: #FF6900;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-label {\n  border-color: #FFAE62;\n  background-color: #FF6900;\n  color: #D9D9D6;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n  color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #FF6900;\n  color: #D9D9D6;\n}\n.dyna-ui-field-wrapper .dyna-ui-label {\n  -webkit-transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container {\n  -webkit-transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  -webkit-transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n", ""]);
+			exports.push([module.i, ".dyna-ui-field-wrapper {\n  outline: none;\n  -webkit-transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container input,\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-control-container select {\n  color: inherit;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK {\n  border-color: #222223;\n  background-color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_BLACK.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #D0D3D4;\n  color: #222223;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GREY_WHITE {\n  border-color: #D0D3D4;\n  background-color: #65665C;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GREY_WHITE .dyna-ui-label {\n  border-color: #D0D3D4;\n  background-color: #51534A;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GREY_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n  color: #51534A;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GREY_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-GREY_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #51534A;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED {\n  border-color: #E4002B;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-label {\n  border-color: #C8102E;\n  color: #D0D3D4;\n  background-color: #E4002B;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-WHITE_RED.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #E4002B;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE {\n  border-color: #222223;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-label {\n  border-color: #212721;\n  color: #D0D3D4;\n  background-color: #222223;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-BLACK_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #222223;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE {\n  border-color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-label {\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container {\n  color: #D0D3D4;\n  background-color: transparent;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-TRANSPARENT_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: transparent;\n  color: #D0D3D4;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE {\n  border-color: #FF6900;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-label {\n  border-color: #FFAE62;\n  background-color: #FF6900;\n  color: #D9D9D6;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container {\n  background-color: white;\n  color: black;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  color: #E40046;\n}\n.dyna-ui-field-wrapper.dyna-ui-field-wrapper--color-ORANGE_WHITE.dyna-ui-field-wrapper--mode-VIEW .dyna-ui-field-wrapper-container {\n  background-color: #FF6900;\n  color: #D9D9D6;\n}\n.dyna-ui-field-wrapper .dyna-ui-label {\n  -webkit-transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container {\n  -webkit-transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n.dyna-ui-field-wrapper .dyna-ui-field-wrapper-container .dyna-ui-field-wrapper-validation-message {\n  -webkit-transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;\n}\n", ""]);
 
 			// exports
 

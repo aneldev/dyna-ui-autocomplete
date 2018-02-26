@@ -30,7 +30,7 @@
   "author": "Anel dev",
   "license": "MIT",
   "dependencies": {
-    "dyna-ui-field-wrapper": "^1.6.2",
+    "dyna-ui-field-wrapper": "^1.6.3",
     "dyna-ui-picker-container": "^1.1.1",
     "font-awesome": "^4.7.0",
     "react": "^16.0.0",
@@ -90,7 +90,7 @@
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.10.0",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "^2.11.2"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./tests/setup/testSetup.js",
