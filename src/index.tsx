@@ -1,7 +1,7 @@
 import {
   DynaAutoComplete, IDynaAutoCompleteProps,
   IAutoCompleteValue,
-  EMode, EStyle, EColor,
+  EMode, EStyle, EColor, ESize,
 } from "./DynaAutoComplete";
 
 import {
@@ -11,6 +11,6 @@ import {
 export {
   DynaAutoComplete, IDynaAutoCompleteProps,
   IAutoCompleteValue,
-  EMode, EStyle, EColor,
+  EMode, EStyle, EColor, ESize,
   debounce,
 }

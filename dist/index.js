@@ -990,6 +990,7 @@ exports.DynaAutoComplete = DynaAutoComplete_1.DynaAutoComplete;
 exports.EMode = DynaAutoComplete_1.EMode;
 exports.EStyle = DynaAutoComplete_1.EStyle;
 exports.EColor = DynaAutoComplete_1.EColor;
+exports.ESize = DynaAutoComplete_1.ESize;
 var utils_1 = __webpack_require__(9);
 exports.debounce = utils_1.debounce;
 
@@ -1017,6 +1018,7 @@ var dyna_ui_field_wrapper_1 = __webpack_require__(24);
 exports.EColor = dyna_ui_field_wrapper_1.EColor;
 exports.EMode = dyna_ui_field_wrapper_1.EMode;
 exports.EStyle = dyna_ui_field_wrapper_1.EStyle;
+exports.ESize = dyna_ui_field_wrapper_1.ESize;
 var dyna_ui_picker_container_1 = __webpack_require__(25);
 __webpack_require__(26);
 __webpack_require__(29);
