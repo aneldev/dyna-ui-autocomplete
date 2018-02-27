@@ -12,6 +12,7 @@ import {faIcon} from "./utils";
 export {EMode, EColor, EStyle}
 
 export interface IDynaAutoCompleteProps<TItem> {
+  className?: string;
   name: string;
   style?: EStyle;
   color?: EColor;
@@ -41,6 +42,7 @@ export interface IAutoCompleteValue<TItem> {
 
 export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompleteProps<TItem>> {
   static defaultProps: IDynaAutoCompleteProps<any> = {
+    className: '',
     name: '',
     mode: EMode.EDIT,
     style: EStyle.INLINE_ROUNDED,
@@ -97,6 +99,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
 
   public render(): JSX.Element {
     const {
+      className,
       mode, style, color, size,
       label, required, isLoading,
       items, value,
@@ -108,7 +111,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
 
     return (
       <DynaFieldWrapper
-        className="dyna-autocomplete"
+        className={`dyna-autocomplete ${className}`.trim()}
         style={style}
         color={color}
         size={size}

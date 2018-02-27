@@ -4,6 +4,7 @@ import "./style.less";
 import "./color.less";
 export { EMode, EColor, EStyle };
 export interface IDynaAutoCompleteProps<TItem> {
+    className?: string;
     name: string;
     style?: EStyle;
     color?: EColor;
