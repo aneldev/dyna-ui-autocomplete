@@ -4936,9 +4936,40 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 			})(EStyle = exports.EStyle || (exports.EStyle = {}));
 			var DynaPickerContainer = /** @class */function (_super) {
 				__extends(DynaPickerContainer, _super);
-				function DynaPickerContainer() {
-					return _super !== null && _super.apply(this, arguments) || this;
+				function DynaPickerContainer(props) {
+					var _this = _super.call(this, props) || this;
+					_this.keepInScreen = _this.keepInScreen.bind(_this);
+					return _this;
 				}
+				DynaPickerContainer.prototype.componentDidMount = function () {
+					this.keepInScreen();
+					console.log('evenbt added');
+					window.addEventListener("resize", this.keepInScreen);
+				};
+				DynaPickerContainer.prototype.componentWillUnmount = function () {
+					window.removeEventListener("resize", this.keepInScreen);
+				};
+				DynaPickerContainer.prototype.componentDidUpdate = function () {
+					this.keepInScreen();
+				};
+				DynaPickerContainer.prototype.keepInScreen = function () {
+					var show = this.props.show;
+					var container = this.refs.container;
+					if (!show) return;
+					// reset the position to get the actual default value
+					container.style.left = "";
+					container.style.right = "";
+					var getContainerLeft = function getContainerLeft() {
+						return container.getClientRects()[0].left;
+					}; // IE11 bug fix, don't use getComputedStyle!
+					if (getContainerLeft() + container.offsetWidth > window.innerWidth - 10) {
+						container.style.right = "10px";
+					}
+					if (getContainerLeft() - 10 < 0) {
+						container.style.right = "";
+						container.style.left = "10px";
+					}
+				};
 				DynaPickerContainer.prototype.render = function () {
 					var _a = this.props,
 					    show = _a.show,
@@ -4947,7 +4978,7 @@ var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbo
 					    color = _a.color,
 					    responsive = _a.responsive;
 					var className = ['dyna-ui-picker-container', "dyna-ui-picker-container--style-" + style, "dyna-ui-picker-container--color-" + color, "dyna-ui-picker-container--" + (show ? 'show' : 'hide'), "dyna-ui-picker-container--" + (responsive ? 'responsive' : '')].join(' ').trim();
-					return React.createElement("div", { className: className }, children);
+					return React.createElement("div", { className: className, ref: "container" }, children);
 				};
 				DynaPickerContainer.defaultProps = {
 					show: true,
