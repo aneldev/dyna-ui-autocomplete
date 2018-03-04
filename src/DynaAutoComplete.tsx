@@ -2,10 +2,9 @@ import * as React from "react";
 import * as ReactAutoComplete from 'react-autocomplete';
 import {DynaFieldWrapper, EColor, EMode, EStyle, ESize} from "dyna-ui-field-wrapper"
 import {DynaPickerContainer, EStyle as EPickerStyle, EColor as EPickerColor} from "dyna-ui-picker-container"
+import {faIcon} from "./utils";
 
 import "./style.less";
-import "./color.less";
-import {faIcon} from "./utils";
 
 // help: https://github.com/reactjs/react-autocomplete
 
