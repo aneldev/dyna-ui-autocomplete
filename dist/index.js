@@ -5406,7 +5406,7 @@ exports = module.exports = __webpack_require__(7)(false);
 
 
 // module
-exports.push([module.i, ".dyna-autocomplete input {\n  width: 100%;\n  border-color: transparent;\n  font-weight: bold;\n  font-size: 16px;\n}\n.dyna-autocomplete input:focus {\n  outline: none;\n}\n.dyna-autocomplete .dyna-autocomplete-menu {\n  position: absolute;\n  right: 0;\n  left: 0;\n  z-index: 1000;\n  cursor: pointer;\n}\n.dyna-autocomplete.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-picker-container > *:first-child {\n  border-top-left-radius: 8px;\n  border-top-right-radius: 8px;\n}\n.dyna-autocomplete.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-picker-container > *:last-child {\n  border-bottom-left-radius: 8px;\n  border-bottom-right-radius: 8px;\n}\n", ""]);
+exports.push([module.i, ".dyna-autocomplete input {\n  width: 100%;\n  border-color: transparent;\n  font-weight: bold;\n  font-size: 16px;\n  border: 0;\n}\n.dyna-autocomplete input:focus {\n  outline: none;\n}\n.dyna-autocomplete .dyna-autocomplete-menu {\n  position: absolute;\n  right: 0;\n  left: 0;\n  z-index: 1000;\n  cursor: pointer;\n}\n.dyna-autocomplete.dyna-ui-field-wrapper--mode-VIEW {\n  pointer-events: none;\n}\n.dyna-autocomplete.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-picker-container > *:first-child {\n  border-top-left-radius: 8px;\n  border-top-right-radius: 8px;\n}\n.dyna-autocomplete.dyna-ui-field-wrapper--style-INLINE_ROUNDED .dyna-ui-picker-container > *:last-child {\n  border-bottom-left-radius: 8px;\n  border-bottom-right-radius: 8px;\n}\n", ""]);
 
 // exports
 

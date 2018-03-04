@@ -250,7 +250,7 @@ export const selectAirportShowcase: IShowcaseView = {
               name="passengerName"
               label="Passenger name"
               mode={mode}
-              footer={infoForDemostrationOnly}
+              validationMessage={infoForDemostrationOnly}
               value={passengerName}
               onChange={(name: string, value: string) => this.setState({passengerName: value})}/>
             <SelectAirport
@@ -270,7 +270,7 @@ export const selectAirportShowcase: IShowcaseView = {
               label="Phone number"
               mode={mode}
               value={phoneNumber}
-              footer={infoForDemostrationOnly}
+              validationMessage={infoForDemostrationOnly}
               onChange={(name: string, value: string) => this.setState({phoneNumber: value})}/>
           </div>
         );
