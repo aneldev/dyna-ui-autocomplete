@@ -149,7 +149,7 @@ export const selectAirportShowcase: IShowcaseView = {
         return (
           <DynaAutoComplete
             name={name}
-            color={EColor.GRAY_WHITE}
+            color={EColor.GREY_WHITE}
             mode={mode || EMode.EDIT}
             label={label}
             isLoading={isLoading}
@@ -173,6 +173,7 @@ export const selectAirportShowcase: IShowcaseView = {
     // MyApplication component (the user of the SelectAirport)
 
     interface IMyApplicationProps {
+      mode?: EMode;
     }
 
     interface IMyApplicationState {
@@ -233,6 +234,9 @@ export const selectAirportShowcase: IShowcaseView = {
 
       public render(): JSX.Element {
         const {
+          mode,
+        } =  this.props;
+        const {
           passengerName, phoneNumber,
           suggestAirports, selectedAirportValue, isLoading, selectedAirportValidation,
         } = this.state;
@@ -245,12 +249,14 @@ export const selectAirportShowcase: IShowcaseView = {
             <DynaInput
               name="passengerName"
               label="Passenger name"
+              mode={mode}
               footer={infoForDemostrationOnly}
               value={passengerName}
               onChange={(name: string, value: string) => this.setState({passengerName: value})}/>
             <SelectAirport
               name="originAirport"
               label="From"
+              mode={mode}
               placeholder="where do you want to go"
               suggestedAirports={suggestAirports}
               value={selectedAirportValue}
@@ -259,22 +265,10 @@ export const selectAirportShowcase: IShowcaseView = {
               onBlur={this.handleAirportBlur.bind(this)}
               onChange={this.handleAirportChange.bind(this)}
             />
-            <SelectAirport
-              name="destinationAirport"
-              label="To (in view mode)"
-              mode={EMode.VIEW}
-              placeholder="where do you want to go"
-              suggestedAirports={suggestAirports}
-              value="VIE"
-              onBlur={this.handleAirportBlur.bind(this)}
-              onChange={(name: string, value: string, airport: IAirport) => {
-                alert('ERROR, view mode control triggered onChange');
-                console.error('ERROR, view mode control triggered onChange', {name, value, airport});
-              }}
-            />
             <DynaInput
               name="phoneNumber"
               label="Phone number"
+              mode={mode}
               value={phoneNumber}
               footer={infoForDemostrationOnly}
               onChange={(name: string, value: string) => this.setState({phoneNumber: value})}/>
@@ -292,4 +286,21 @@ export const selectAirportShowcase: IShowcaseView = {
   wrapperStyle: {
     width: "100%",
   },
+  props: [
+    {
+      slug: 'edit-mode',
+      title: 'Edit mode',
+      props:{
+        mode:EMode.EDIT,
+      },
+    },
+    {
+      slug: 'view-mode',
+      title: 'View mode',
+      props:{
+        mode:EMode.VIEW,
+      },
+    },
+  ]
+
 };
