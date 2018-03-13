@@ -203,8 +203,8 @@ var DynaAutoComplete = /** @class */ (function (_super) {
             React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, { show: true, style: dyna_ui_picker_container_1.EStyle.ROUNDED, color: dyna_ui_picker_container_1.EColor.WHITE_BLACK, responsive: false }, children)));
     };
     DynaAutoComplete.prototype.render = function () {
-        var _a = this.props, className = _a.className, mode = _a.mode, style = _a.style, color = _a.color, size = _a.size, label = _a.label, required = _a.required, isLoading = _a.isLoading, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, inputProps = _a.inputProps, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
-        return (React.createElement(dyna_ui_field_wrapper_1.DynaFieldWrapper, { className: ("dyna-autocomplete " + className).trim(), style: style, color: color, size: size, mode: mode, inputElementSelector: "input", label: label, isLoading: isLoading ? utils_1.faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null, required: required, validationMessage: validationMessage, footer: footer },
+        var _a = this.props, className = _a.className, mode = _a.mode, style = _a.style, color = _a.color, size = _a.size, label = _a.label, required = _a.required, isLoading = _a.isLoading, isLoadingIcon = _a.isLoadingIcon, items = _a.items, value = _a.value, selectOnBlur = _a.selectOnBlur, inputProps = _a.inputProps, getItemValue = _a.getItemValue, renderItem = _a.renderItem, dropDownFilter = _a.dropDownFilter, validationMessage = _a.validationMessage, footer = _a.footer;
+        return (React.createElement(dyna_ui_field_wrapper_1.DynaFieldWrapper, { className: ("dyna-autocomplete " + className).trim(), style: style, color: color, size: size, mode: mode, inputElementSelector: "input", label: label, isLoading: isLoading ? isLoadingIcon : null, required: required, validationMessage: validationMessage, footer: footer },
             React.createElement(ReactAutoComplete, { items: items, value: value, enabled: mode === dyna_ui_field_wrapper_1.EMode.EDIT, selectOnBlur: selectOnBlur, getItemValue: getItemValue, renderMenu: this.renderMenu.bind(this), renderItem: renderItem, shouldItemRender: dropDownFilter, inputProps: inputProps, onChange: this.handlerOnChange.bind(this), onSelect: this.handlerOnSelect.bind(this) })));
     };
     DynaAutoComplete.defaultProps = {
@@ -216,6 +216,7 @@ var DynaAutoComplete = /** @class */ (function (_super) {
         size: dyna_ui_field_wrapper_1.ESize.MEDIUM,
         label: null,
         isLoading: false,
+        isLoadingIcon: utils_1.faIcon('circle-o-notch fa-spin'),
         items: [],
         value: "",
         inputProps: {},

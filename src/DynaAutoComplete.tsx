@@ -20,6 +20,7 @@ export interface IDynaAutoCompleteProps<TItem> {
   label?: TContent;
   required?: TContent;
   isLoading?: boolean;
+  isLoadingIcon?: TContent;
   items: TItem[];
   value: string;
   selectOnBlur?: boolean;
@@ -49,6 +50,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     size: ESize.MEDIUM,
     label: null,
     isLoading: false,
+    isLoadingIcon: faIcon('circle-o-notch fa-spin'),
     items: [],
     value: "",
     inputProps: {},
@@ -100,7 +102,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     const {
       className,
       mode, style, color, size,
-      label, required, isLoading,
+      label, required, isLoading, isLoadingIcon,
       items, value,
       selectOnBlur,
       inputProps,
@@ -117,7 +119,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         mode={mode}
         inputElementSelector="input"
         label={label}
-        isLoading={isLoading ? faIcon('circle-o-notch fa-spin fa-3x fa-fw') : null}
+        isLoading={isLoading ? isLoadingIcon : null}
         required={required}
         validationMessage={validationMessage}
         footer={footer}

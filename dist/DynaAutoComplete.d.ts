@@ -12,6 +12,7 @@ export interface IDynaAutoCompleteProps<TItem> {
     label?: TContent;
     required?: TContent;
     isLoading?: boolean;
+    isLoadingIcon?: TContent;
     items: TItem[];
     value: string;
     selectOnBlur?: boolean;
