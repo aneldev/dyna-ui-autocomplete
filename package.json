@@ -31,7 +31,7 @@
   "author": "Anel dev",
   "license": "MIT",
   "dependencies": {
-    "dyna-ui-field-wrapper": "^1.7.5",
+    "dyna-ui-field-wrapper": "^1.9.1",
     "dyna-ui-picker-container": "^1.1.9",
     "font-awesome": "^4.7.0",
     "react": "^16.0.0",
@@ -42,7 +42,7 @@
     "@types/enzyme": "^3.1.9",
     "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/jest": "^19.2.2",
-    "@types/node": "^7.0.57",
+    "@types/node": "^7.0.58",
     "@types/react": "^16.1.0",
     "@types/react-dom": "^16.0.4",
     "autoprefixer": "^7.2.6",
