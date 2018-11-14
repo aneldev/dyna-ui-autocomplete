@@ -202,7 +202,6 @@ export const selectAirportShowcase: IShowcaseView = {
       }
 
       private handleAirportChange = (name: string, airportValue: string, airportItem: IAirport): void => {
-        console.debug('airport change', {airportItem, lastAirportItem:this.state.selectedAirportItem });
         this.setState({
           selectedAirportValue: airportValue,
           selectedAirportItem: airportItem || this.state.selectedAirportItem,
