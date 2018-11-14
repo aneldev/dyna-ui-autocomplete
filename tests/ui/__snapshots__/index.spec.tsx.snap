@@ -1,55 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home has expected content with deep render 1`] = `
-<DynaFieldWrapper
-  className="dyna-autocomplete"
-  color="WHITE_BLACK"
-  footer={null}
-  inputElementSelector="input"
-  isLoading={null}
-  label={null}
-  mode="EDIT"
+<a
+  className="my-button my-button--style-ROUNDED my-button--color-WHITE_BLACK my-button--size-MEDIUM"
+  href={null}
   onClick={[Function]}
-  onFocus={[Function]}
-  required={null}
-  size="MEDIUM"
-  style="INLINE_ROUNDED"
-  validationMessage={null}
 >
-  <Autocomplete
-    autoHighlight={true}
-    enabled={true}
-    getItemValue={[Function]}
-    inputProps={Object {}}
-    isItemSelectable={[Function]}
-    items={Array []}
-    menuStyle={
-      Object {
-        "background": "rgba(255, 255, 255, 0.9)",
-        "borderRadius": "3px",
-        "boxShadow": "0 2px 12px rgba(0, 0, 0, 0.1)",
-        "fontSize": "90%",
-        "maxHeight": "50%",
-        "overflow": "auto",
-        "padding": "2px 0",
-        "position": "fixed",
-      }
-    }
-    onChange={[Function]}
-    onMenuVisibilityChange={[Function]}
-    onSelect={[Function]}
-    renderInput={[Function]}
-    renderItem={[Function]}
-    renderMenu={[Function]}
-    selectOnBlur={false}
-    shouldItemRender={[Function]}
-    value="Austria"
-    wrapperProps={Object {}}
-    wrapperStyle={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
-</DynaFieldWrapper>
+  <button>
+    My button
+  </button>
+</a>
 `;

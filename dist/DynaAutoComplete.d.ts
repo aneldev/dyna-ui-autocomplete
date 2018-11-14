@@ -31,6 +31,7 @@ export interface IAutoCompleteValue<TItem> {
 }
 export declare class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompleteProps<TItem>> {
     static defaultProps: IDynaAutoCompleteProps<any>;
+    private itemSelected;
     private handlerOnChange;
     private handlerOnSelect;
     private renderMenu;

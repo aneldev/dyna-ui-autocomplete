@@ -1,4 +1,4 @@
-declare let global: any, jasmine: any, describe: any, clearTest: any, it: any, expect: any;
+import "jest";
 
 import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
@@ -8,7 +8,7 @@ import * as React from 'react';
 import * as enzyme from 'enzyme';
 
 import {DynaAutoComplete} from '../../src';
-import {IAutoCompleteValue} from "../../src/DynaAutoComplete";
+import {IAutoCompleteValue} from "../../src";
 
 describe('Home', () => {
   let wrapper;

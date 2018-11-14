@@ -9,8 +9,8 @@ export const Logo= ()=>(
       {faIcon('cubes')}
     </div>
     <div className={styles.texts}>
-      <div className={styles.line1}>dyna ui autocomplete</div>
-      <div className={styles.line2}>simple autocomplete</div>
+      <div className={styles.line1}>dyna ts</div>
+      <div className={styles.line2}>react module boilerplate</div>
     </div>
   </div>
 
