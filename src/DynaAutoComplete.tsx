@@ -1,4 +1,5 @@
 import * as React from "react";
+// @ts-ignore
 import * as ReactAutoComplete from 'react-autocomplete';
 import {DynaFieldWrapper, EColor, EMode, EStyle, ESize} from "dyna-ui-field-wrapper"
 import {DynaPickerContainer, EStyle as EPickerStyle, EColor as EPickerColor} from "dyna-ui-picker-container"
@@ -63,16 +64,16 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     onChange: (name: string, value: IAutoCompleteValue<any>) => undefined,
   };
 
-  private handlerOnChange(event: Event, value: string): void {
+  private handlerOnChange = (event: any, value: string): void => {
     if (this.props.mode === EMode.VIEW) return;
     const {name, items, onChange, getItemValue} = this.props;
     onChange(name, {
       value,
       item: items.find((item: TItem) => value === getItemValue(item)),
     });
-  }
+  };
 
-  private handlerOnSelect(value: string, item: TItem): void {
+  private handlerOnSelect = (value: string, item: TItem): void => {
     if (this.props.mode === EMode.VIEW) return;
     if (this.props.value === value) return; // exit, nothing is changed
     const {name, onChange} = this.props;
@@ -80,9 +81,9 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
       value,
       item,
     });
-  }
+  };
 
-  private renderMenu(children: any): JSX.Element {
+  private renderMenu = (children: any): JSX.Element => {
     if (this.props.mode === EMode.VIEW) return <div/>;
     if (!children || !children.length) return <div/>;
 
@@ -96,7 +97,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         >{children}</DynaPickerContainer>
       </div>
     )
-  }
+  };
 
   public render(): JSX.Element {
     const {
@@ -130,12 +131,12 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
           enabled={mode === EMode.EDIT}
           selectOnBlur={selectOnBlur}
           getItemValue={getItemValue}
-          renderMenu={this.renderMenu.bind(this)}
+          renderMenu={this.renderMenu}
           renderItem={renderItem}
           shouldItemRender={dropDownFilter}
           inputProps={inputProps}
-          onChange={this.handlerOnChange.bind(this)}
-          onSelect={this.handlerOnSelect.bind(this)}
+          onChange={this.handlerOnChange}
+          onSelect={this.handlerOnSelect}
         />
       </DynaFieldWrapper>
     );

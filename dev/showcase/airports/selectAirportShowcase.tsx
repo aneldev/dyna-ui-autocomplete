@@ -109,11 +109,11 @@ export const selectAirportShowcase: IShowcaseView = {
         super(props);
       }
 
-      private handleChange(name: string, acValue: IAutoCompleteValue<IAirport>): void {
+      private handleChange = (name: string, acValue: IAutoCompleteValue<IAirport>): void => {
         this.props.onChange(name, acValue.value, acValue.item);
-      }
+      };
 
-      private renderAirportOption(airport: IAirport, isFocused: boolean): JSX.Element {
+      private renderAirportOption = (airport: IAirport, isFocused: boolean): JSX.Element => {
         const className: string = [
           selectAirportStyles.airportDropDownOption,
           isFocused ? selectAirportStyles.isFocused : '',
@@ -131,7 +131,7 @@ export const selectAirportShowcase: IShowcaseView = {
             </div>
           </div>
         );
-      }
+      };
 
       public render(): JSX.Element {
         const {
@@ -163,8 +163,8 @@ export const selectAirportShowcase: IShowcaseView = {
             items={!!value ? suggestedAirports : []}
             validationMessage={validationMessage || null}
             getItemValue={(item: IAirport) => `${item.iata.toUpperCase()} ${item.city}`}
-            renderItem={this.renderAirportOption.bind(this)}
-            onChange={this.handleChange.bind(this)}
+            renderItem={this.renderAirportOption}
+            onChange={this.handleChange}
           />
         );
       }
@@ -201,7 +201,7 @@ export const selectAirportShowcase: IShowcaseView = {
         };
       }
 
-      private handleAirportChange(name: string, airportValue: string, airportItem: IAirport): void {
+      private handleAirportChange = (name: string, airportValue: string, airportItem: IAirport): void => {
         console.debug('airport change', {airportItem, lastAirportItem:this.state.selectedAirportItem });
         this.setState({
           selectedAirportValue: airportValue,
@@ -215,9 +215,9 @@ export const selectAirportShowcase: IShowcaseView = {
             isLoading: false,
           });
         });
-      }
+      };
 
-      private handleAirportBlur(): void {
+      private handleAirportBlur = (): void => {
         if (this.state.selectedAirportItem) {
           this.setState({
             selectedAirportValue: `${this.state.selectedAirportItem.iata.toUpperCase()} ${this.state.selectedAirportItem.city}`,
@@ -229,8 +229,7 @@ export const selectAirportShowcase: IShowcaseView = {
             selectedAirportValidation: 'please select airport',
           });
         }
-
-      }
+      };
 
       public render(): JSX.Element {
         const {
@@ -262,8 +261,8 @@ export const selectAirportShowcase: IShowcaseView = {
               value={selectedAirportValue}
               isLoading={isLoading}
               validationMessage={selectedAirportValidation}
-              onBlur={this.handleAirportBlur.bind(this)}
-              onChange={this.handleAirportChange.bind(this)}
+              onBlur={this.handleAirportBlur}
+              onChange={this.handleAirportChange}
             />
             <DynaInput
               name="phoneNumber"

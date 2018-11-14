@@ -39,7 +39,7 @@ export const selectCurrencyShowcase: IShowcaseView = {
         };
       }
 
-      private renderItem(item: ICurrency, isFocused: boolean): JSX.Element {
+      private renderItem = (item: ICurrency, isFocused: boolean): JSX.Element => {
         const className:string= [
           'currency-item',
           isFocused ? 'currency-item--focused' : ''
@@ -50,25 +50,25 @@ export const selectCurrencyShowcase: IShowcaseView = {
             className={className}
           >{item.name}</div>
         );
-      }
+      };
 
-      private handleBlur(event: Event): void {
+      private handleBlur = (event: any): void => {
         if (this.state.currency) {
           this.setState({userText: this.state.currency.name});
         }
         else {
           this.setState({userText: ''});
         }
-      }
+      };
 
-      private handleChange(name: string, value: IAutoCompleteValue<ICurrency>): void {
+      private handleChange = (name: string, value: IAutoCompleteValue<ICurrency>): void => {
         const newState: IMyComponentState = {userText: value.value};
         if (value.item) {
           newState.currency = value.item;
           console.log('selected currency', value.item);
         }
         this.setState(newState);
-      }
+      };
 
       public render(): JSX.Element {
         return (
@@ -80,13 +80,13 @@ export const selectCurrencyShowcase: IShowcaseView = {
             selectOnBlur
             inputProps={{
               placeholder: 'select currency',
-              onBlur: this.handleBlur.bind(this)
+              onBlur: this.handleBlur,
             }}
             value={this.state.userText}
             getItemValue={(item: ICurrency) => item.name}
             dropDownFilter={(item: ICurrency, enteredText: string) => item.name.toLowerCase().indexOf(enteredText.toLowerCase()) > -1}
-            renderItem={this.renderItem.bind(this)}
-            onChange={this.handleChange.bind(this)}
+            renderItem={this.renderItem}
+            onChange={this.handleChange}
           />
         );
       }

@@ -911,59 +911,52 @@ function (_super) {
     var _this = _super !== null && _super.apply(this, arguments) || this;
 
     _this.itemSelected = false;
+
+    _this.handlerOnChange = function (event, value) {
+      if (_this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return;
+      var _a = _this.props,
+          name = _a.name,
+          items = _a.items,
+          onChange = _a.onChange,
+          getItemValue = _a.getItemValue;
+      var matchItem = items.find(function (item) {
+        return value === getItemValue(item);
+      });
+      _this.itemSelected = !!matchItem;
+      onChange(name, {
+        value: value,
+        item: matchItem
+      });
+    };
+
+    _this.handlerOnSelect = function (value, item) {
+      if (_this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return;
+      if (_this.props.value === value) return; // exit, nothing is changed
+
+      var _a = _this.props,
+          name = _a.name,
+          onChange = _a.onChange;
+      onChange(name, {
+        value: value,
+        item: item
+      });
+    };
+
+    _this.renderMenu = function (children) {
+      if (_this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return React.createElement("div", null);
+      if (!children || !children.length) return React.createElement("div", null);
+      return React.createElement("div", {
+        className: "dyna-autocomplete-menu"
+      }, React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, {
+        show: true,
+        style: dyna_ui_picker_container_1.EStyle.ROUNDED,
+        color: dyna_ui_picker_container_1.EColor.WHITE_BLACK,
+        responsive: false
+      }, children));
+    };
+
     return _this;
   }
-
-  DynaAutoComplete.prototype.handlerOnChange = function (event, value) {
-    if (this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return;
-    var _a = this.props,
-        name = _a.name,
-        items = _a.items,
-        onChange = _a.onChange,
-        getItemValue = _a.getItemValue;
-    var matchItem = items.find(function (item) {
-      return value === getItemValue(item);
-    });
-    this.itemSelected = !!matchItem;
-    console.debug('handlerOnChange', {
-      value: value,
-      matchItem: matchItem
-    });
-    onChange(name, {
-      value: value,
-      item: matchItem
-    });
-  };
-
-  DynaAutoComplete.prototype.handlerOnSelect = function (value, item) {
-    if (this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return;
-    if (this.props.value === value) return; // exit, nothing is changed
-
-    var _a = this.props,
-        name = _a.name,
-        onChange = _a.onChange;
-    console.debug('handlerOnChange', {
-      value: value,
-      item: item
-    });
-    onChange(name, {
-      value: value,
-      item: item
-    });
-  };
-
-  DynaAutoComplete.prototype.renderMenu = function (children) {
-    if (this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return React.createElement("div", null);
-    if (!children || !children.length) return React.createElement("div", null);
-    return React.createElement("div", {
-      className: "dyna-autocomplete-menu"
-    }, React.createElement(dyna_ui_picker_container_1.DynaPickerContainer, {
-      show: true,
-      style: dyna_ui_picker_container_1.EStyle.ROUNDED,
-      color: dyna_ui_picker_container_1.EColor.WHITE_BLACK,
-      responsive: false
-    }, children));
-  };
 
   DynaAutoComplete.prototype.render = function () {
     var _a = this.props,
@@ -1003,12 +996,12 @@ function (_super) {
       enabled: mode === dyna_ui_field_wrapper_1.EMode.EDIT,
       selectOnBlur: selectOnBlur,
       getItemValue: getItemValue,
-      renderMenu: this.renderMenu.bind(this),
+      renderMenu: this.renderMenu,
       renderItem: renderItem,
       shouldItemRender: dropDownFilter,
       inputProps: inputProps,
-      onChange: this.handlerOnChange.bind(this),
-      onSelect: this.handlerOnSelect.bind(this)
+      onChange: this.handlerOnChange,
+      onSelect: this.handlerOnSelect
     }));
   };
 
