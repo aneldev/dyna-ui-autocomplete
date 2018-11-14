@@ -910,8 +910,6 @@ function (_super) {
   function DynaAutoComplete() {
     var _this = _super !== null && _super.apply(this, arguments) || this;
 
-    _this.itemSelected = false;
-
     _this.handlerOnChange = function (event, value) {
       if (_this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return;
       var _a = _this.props,
@@ -919,13 +917,11 @@ function (_super) {
           items = _a.items,
           onChange = _a.onChange,
           getItemValue = _a.getItemValue;
-      var matchItem = items.find(function (item) {
-        return value === getItemValue(item);
-      });
-      _this.itemSelected = !!matchItem;
       onChange(name, {
         value: value,
-        item: matchItem
+        item: items.find(function (item) {
+          return value === getItemValue(item);
+        })
       });
     };
 
