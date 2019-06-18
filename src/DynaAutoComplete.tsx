@@ -24,6 +24,7 @@ export interface IDynaAutoCompleteProps<TItem> {
   isLoadingIcon?: TContent;
   items: TItem[];
   value: string;
+  bindLabelWithInput?: boolean;   // default: true, bind with input.id = label.for = guid
   selectOnBlur?: boolean;
   inputProps?: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
   getItemValue: (item: TItem) => string;
@@ -54,6 +55,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
     isLoadingIcon: faIcon('circle-o-notch fa-spin'),
     items: [],
     value: "",
+    bindLabelWithInput: true,
     inputProps: {},
     selectOnBlur: false,
     getItemValue: (item: any) => "",
@@ -106,6 +108,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
       label, required, isLoading, isLoadingIcon,
       items, value,
       selectOnBlur,
+      bindLabelWithInput,
       inputProps,
       getItemValue, renderItem, dropDownFilter,
       validationMessage, footer,
@@ -118,6 +121,7 @@ export class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompletePr
         color={color}
         size={size}
         mode={mode}
+        bindLabelWithInput={bindLabelWithInput}
         inputElementSelector="input"
         label={label}
         isLoading={isLoading ? isLoadingIcon : null}
