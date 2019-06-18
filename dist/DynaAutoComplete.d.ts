@@ -15,6 +15,7 @@ export interface IDynaAutoCompleteProps<TItem> {
     isLoadingIcon?: TContent;
     items: TItem[];
     value: string;
+    bindLabelWithInput?: boolean;
     selectOnBlur?: boolean;
     inputProps?: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     getItemValue: (item: TItem) => string;

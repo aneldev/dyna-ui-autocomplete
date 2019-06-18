@@ -968,6 +968,7 @@ function (_super) {
         items = _a.items,
         value = _a.value,
         selectOnBlur = _a.selectOnBlur,
+        bindLabelWithInput = _a.bindLabelWithInput,
         inputProps = _a.inputProps,
         getItemValue = _a.getItemValue,
         renderItem = _a.renderItem,
@@ -980,6 +981,7 @@ function (_super) {
       color: color,
       size: size,
       mode: mode,
+      bindLabelWithInput: bindLabelWithInput,
       inputElementSelector: "input",
       label: label,
       isLoading: isLoading ? isLoadingIcon : null,
@@ -1013,6 +1015,7 @@ function (_super) {
     isLoadingIcon: utils_1.faIcon('circle-o-notch fa-spin'),
     items: [],
     value: "",
+    bindLabelWithInput: true,
     inputProps: {},
     selectOnBlur: false,
     getItemValue: function getItemValue(item) {
