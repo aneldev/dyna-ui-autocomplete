@@ -4,6 +4,9 @@ import "./style.less";
 export { EMode, EColor, EStyle, ESize };
 export interface IDynaAutoCompleteProps<TItem> {
     className?: string;
+    id?: string;
+    applyLabelId?: boolean;
+    applyInputId?: boolean;
     name: string;
     style?: EStyle;
     color?: EColor;
@@ -15,7 +18,6 @@ export interface IDynaAutoCompleteProps<TItem> {
     isLoadingIcon?: TContent;
     items: TItem[];
     value: string;
-    bindLabelWithInput?: boolean;
     selectOnBlur?: boolean;
     inputProps?: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
     getItemValue: (item: TItem) => string;
@@ -32,6 +34,8 @@ export interface IAutoCompleteValue<TItem> {
 }
 export declare class DynaAutoComplete<TItem> extends React.Component<IDynaAutoCompleteProps<TItem>> {
     static defaultProps: IDynaAutoCompleteProps<any>;
+    private internalHtmlId;
+    constructor(props: IDynaAutoCompleteProps<TItem>);
     private handlerOnChange;
     private handlerOnSelect;
     private renderMenu;

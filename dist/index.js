@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("dyna-ui-field-wrapper"), require("react"), require("react-autocomplete"), require("dyna-ui-picker-container"));
+		module.exports = factory(require("dyna-guid"), require("react"), require("react-autocomplete"), require("dyna-ui-field-wrapper"), require("dyna-ui-picker-container"));
 	else if(typeof define === 'function' && define.amd)
-		define("dyna-ui-autocomplete", ["dyna-ui-field-wrapper", "react", "react-autocomplete", "dyna-ui-picker-container"], factory);
+		define("dyna-ui-autocomplete", ["dyna-guid", "react", "react-autocomplete", "dyna-ui-field-wrapper", "dyna-ui-picker-container"], factory);
 	else if(typeof exports === 'object')
-		exports["dyna-ui-autocomplete"] = factory(require("dyna-ui-field-wrapper"), require("react"), require("react-autocomplete"), require("dyna-ui-picker-container"));
+		exports["dyna-ui-autocomplete"] = factory(require("dyna-guid"), require("react"), require("react-autocomplete"), require("dyna-ui-field-wrapper"), require("dyna-ui-picker-container"));
 	else
-		root["dyna-ui-autocomplete"] = factory(root["dyna-ui-field-wrapper"], root["react"], root["react-autocomplete"], root["dyna-ui-picker-container"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_dyna_ui_field_wrapper__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_autocomplete__, __WEBPACK_EXTERNAL_MODULE_dyna_ui_picker_container__) {
+		root["dyna-ui-autocomplete"] = factory(root["dyna-guid"], root["react"], root["react-autocomplete"], root["dyna-ui-field-wrapper"], root["dyna-ui-picker-container"]);
+})(window, function(__WEBPACK_EXTERNAL_MODULE_dyna_guid__, __WEBPACK_EXTERNAL_MODULE_react__, __WEBPACK_EXTERNAL_MODULE_react_autocomplete__, __WEBPACK_EXTERNAL_MODULE_dyna_ui_field_wrapper__, __WEBPACK_EXTERNAL_MODULE_dyna_ui_picker_container__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -880,6 +880,22 @@ var __extends = this && this.__extends || function () {
   };
 }();
 
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -888,6 +904,8 @@ var React = __webpack_require__(/*! react */ "react"); // @ts-ignore
 
 
 var ReactAutoComplete = __webpack_require__(/*! react-autocomplete */ "react-autocomplete");
+
+var dyna_guid_1 = __webpack_require__(/*! dyna-guid */ "dyna-guid");
 
 var dyna_ui_field_wrapper_1 = __webpack_require__(/*! dyna-ui-field-wrapper */ "dyna-ui-field-wrapper");
 
@@ -907,8 +925,8 @@ var DynaAutoComplete =
 function (_super) {
   __extends(DynaAutoComplete, _super);
 
-  function DynaAutoComplete() {
-    var _this = _super !== null && _super.apply(this, arguments) || this;
+  function DynaAutoComplete(props) {
+    var _this = _super.call(this, props) || this;
 
     _this.handlerOnChange = function (event, value) {
       if (_this.props.mode === dyna_ui_field_wrapper_1.EMode.VIEW) return;
@@ -951,12 +969,20 @@ function (_super) {
       }, children));
     };
 
+    _this.internalHtmlId = props.id || "dyna-autocomplete--" + dyna_guid_1.guid();
+
+    if (props.inputProps && props.inputProps.id) {
+      console.error('DynaAutoComplete, You passed `inputProps.id` but this will be overridden by the props.id or it\'s default value a guid.');
+    }
+
     return _this;
   }
 
   DynaAutoComplete.prototype.render = function () {
     var _a = this.props,
         className = _a.className,
+        applyLabelId = _a.applyLabelId,
+        applyInputId = _a.applyInputId,
         mode = _a.mode,
         style = _a.style,
         color = _a.color,
@@ -968,7 +994,6 @@ function (_super) {
         items = _a.items,
         value = _a.value,
         selectOnBlur = _a.selectOnBlur,
-        bindLabelWithInput = _a.bindLabelWithInput,
         inputProps = _a.inputProps,
         getItemValue = _a.getItemValue,
         renderItem = _a.renderItem,
@@ -977,11 +1002,13 @@ function (_super) {
         footer = _a.footer;
     return React.createElement(dyna_ui_field_wrapper_1.DynaFieldWrapper, {
       className: ("dyna-autocomplete " + className).trim(),
+      id: this.internalHtmlId,
+      applyLabelId: applyLabelId,
+      applyInputId: false,
       style: style,
       color: color,
       size: size,
       mode: mode,
-      bindLabelWithInput: bindLabelWithInput,
       inputElementSelector: "input",
       label: label,
       isLoading: isLoading ? isLoadingIcon : null,
@@ -997,7 +1024,9 @@ function (_super) {
       renderMenu: this.renderMenu,
       renderItem: renderItem,
       shouldItemRender: dropDownFilter,
-      inputProps: inputProps,
+      inputProps: __assign({}, inputProps || {}, {
+        id: applyInputId && this.internalHtmlId || undefined
+      }),
       onChange: this.handlerOnChange,
       onSelect: this.handlerOnSelect
     }));
@@ -1005,6 +1034,9 @@ function (_super) {
 
   DynaAutoComplete.defaultProps = {
     className: '',
+    id: null,
+    applyLabelId: true,
+    applyInputId: true,
     name: '',
     mode: dyna_ui_field_wrapper_1.EMode.EDIT,
     style: dyna_ui_field_wrapper_1.EStyle.INLINE_ROUNDED,
@@ -1015,7 +1047,6 @@ function (_super) {
     isLoadingIcon: utils_1.faIcon('circle-o-notch fa-spin'),
     items: [],
     value: "",
-    bindLabelWithInput: true,
     inputProps: {},
     selectOnBlur: false,
     getItemValue: function getItemValue(item) {
@@ -1049,6 +1080,7 @@ exports.DynaAutoComplete = DynaAutoComplete;
   }
 
   reactHotLoader.register(__extends, "__extends", "/Users/dennis/dev/dyna/dyna-ui-autocomplete/src/DynaAutoComplete.tsx");
+  reactHotLoader.register(__assign, "__assign", "/Users/dennis/dev/dyna/dyna-ui-autocomplete/src/DynaAutoComplete.tsx");
   reactHotLoader.register(DynaAutoComplete, "DynaAutoComplete", "/Users/dennis/dev/dyna/dyna-ui-autocomplete/src/DynaAutoComplete.tsx");
   leaveModule(module);
 })();
@@ -1190,6 +1222,18 @@ exports.debounce = function (cbFunction, timeout) {
 
 module.exports = __webpack_require__(/*! /Users/dennis/dev/dyna/dyna-ui-autocomplete/src/index.tsx */"./src/index.tsx");
 
+
+/***/ }),
+
+/***/ "dyna-guid":
+/*!****************************!*\
+  !*** external "dyna-guid" ***!
+  \****************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_dyna_guid__;
 
 /***/ }),
 
