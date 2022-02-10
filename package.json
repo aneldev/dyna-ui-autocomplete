@@ -78,7 +78,7 @@
     "jsdom-global": "3.0.2",
     "less": "^2.7.2",
     "less-loader": "^4.1.0",
-    "node-sass": "^4.10.0",
+    "node-sass": "^7.0.0",
     "postcss-cli": "^4.1.0",
     "postcss-loader": "^2.1.6",
     "raw-loader": "^0.5.1",
